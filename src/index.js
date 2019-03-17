@@ -8,7 +8,6 @@ import reducers from './reducers'
 import middleware from './middleware'
 
 const store = createStore(reducers, middleware)
-//console.log('store', store)
 
 ReactDOM.render(
     <Provider store={store}>
