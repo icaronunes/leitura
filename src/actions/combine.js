@@ -1,6 +1,6 @@
 import { receiveCategorias } from './categorias'
 import { receivePost } from './post'
-import { getAllPostECategorias } from '../utils/utilsApi'
+import { getAllPostECategorias } from '../utils/utils'
 
 const token = 'token'
 

@@ -13,3 +13,17 @@ export function getAllPostECategorias(token) {
     })
 
 }
+
+export function objectToArray(obj){
+    let keys = Object.keys(obj)
+    let lista = keys.map(key => {
+        return obj[key]
+    })
+    return lista
+}
+
+export function formatDate (timestamp) {
+    const d = new Date(timestamp)
+    const time = d.toLocaleTimeString('en-US')
+    return time.substr(0, 5) + time.slice(-2) + ' | ' + d.toLocaleDateString()
+  }
