@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { objectToArray, formatDate } from '../utils/utils'
 class Post extends PureComponent {
 
-    render() {
-        console.log('post-props', this.props)
+    render() {       
         const { post } = this.props
         return (
             <div style={{

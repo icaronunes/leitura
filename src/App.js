@@ -22,10 +22,10 @@ class App extends Component {
             <Nav categorias={this.props.categorias} />
             {this.props.categorias.categories
               && this.props.categorias.categories.map((element) => {
-                return <Route path={`/${element.path}`} exact render={() => <List cat={element.name}/>} />
+                return <Route path={`/${element.path}`} exact render={() => <List categoria={element.name}/>} />
               })}
               {this.props.categorias.categories && 
-              <Route path='/' exact render={() => <List cat={""}/>} />}
+              <Route path='/' exact render={() => <List categoria={"todos"}/>} />}
           </div>
         </Fragment>
       </Router>
