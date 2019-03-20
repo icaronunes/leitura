@@ -4,7 +4,6 @@ import { getAllItens } from './actions/combine'
 import './App.css';
 import Nav from './components/Nav'
 import List from './components/List'
-import Post from './components/Post'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 class App extends Component {

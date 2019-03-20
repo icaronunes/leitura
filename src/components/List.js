@@ -7,7 +7,7 @@ import { objectToArray } from '../utils/utils'
 class List extends Component {
 
     componentDidMount() {
-        const { categoria, dispatch } = this.props      
+        const { categoria, dispatch } = this.props
         if (categoria !== 'todos') {
             dispatch(handleCategoriaById("", categoria))
         } else {
@@ -16,7 +16,7 @@ class List extends Component {
     }
 
     render() {
-        const { posts } = this.props     
+        const { posts } = this.props
         return (
             <div>
                 <ul>
@@ -33,11 +33,11 @@ class List extends Component {
     }
 }
 
-function mapStateToProps({ post }, categoria) { 
-    console.log("mapStateToProps", post, categoria) 
+function mapStateToProps({ post }, categoria) {
+    console.log("mapStateToProps", post, categoria)
     return {
         categoria: categoria.categoria,
-        posts: objectToArray(post)
+        posts:  objectToArray(post)
     }
 }
 

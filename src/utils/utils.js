@@ -15,6 +15,7 @@ export function getAllPostECategorias(token) {
 }
 
 export function objectToArray(obj){
+    if(obj === undefined) return []
     let keys = Object.keys(obj)
     let lista = keys.map(key => {
         return obj[key]
