@@ -7,11 +7,11 @@ import { objectToArray } from '../utils/utils'
 class List extends Component {
 
     componentDidMount() {
-        const { categoria, dispatch } = this.props
+        const { categoria, categoriaById, getPost } = this.props       
         if (categoria !== 'todos') {
-            dispatch(handleCategoriaById("", categoria))
+            categoriaById("", categoria)
         } else {
-            dispatch(handlegetPost())
+            getPost()
         }
     }
 
@@ -24,7 +24,7 @@ class List extends Component {
                         <li style={{
                             listStyleType: 'none'
                         }} key={element.id}>
-                            <Post id={element.id} />
+                            <Post element={element.id} />
                         </li>
                     ))}
                 </ul>
@@ -33,12 +33,21 @@ class List extends Component {
     }
 }
 
-function mapStateToProps({ post }, categoria) {
-    console.log("mapStateToProps", post, categoria)
+function mapStateToProps({ post }, categoria) { 
     return {
         categoria: categoria.categoria,
-        posts:  objectToArray(post)
+        posts: objectToArray(post)
     }
 }
 
-export default connect(mapStateToProps)(List)
+const mapDispatchToProps = (dispatch) => ({
+    categoriaById(token, categoria) {
+        dispatch(handleCategoriaById(token, categoria));
+    },
+    getPost() {
+        dispatch(handlegetPost())
+    }
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)

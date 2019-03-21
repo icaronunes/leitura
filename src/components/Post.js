@@ -1,14 +1,26 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { objectToArray, formatDate } from '../utils/utils'
+import { handleGetPostById } from '../actions/post'
+import { Link } from 'react-router-dom'
 class Post extends PureComponent {
 
-    render() {       
-        const { post } = this.props
+    componentDidMount() {
+        let { element, getPost } = this.props        
+        getPost(element)
+    }
+
+    render() {
+        const { post }  = this.props.post   
         return (
-            <div style={{
+            <Link style={{
                 border: '1px',
                 borderColor: 'red',
+            }} to={{
+                pathname: `/post/${post.id}`,
+                search: "?sort=name",
+                hash: "#the-hash",
+                state: { post: post }
             }}>
                 <h3>{post.title}</h3>
                 <span style={{
@@ -31,21 +43,23 @@ class Post extends PureComponent {
                         position: 'relative'
                     }}>{post.voteScore}</h6>
                 </span>
-            </div>
+            </Link>
         )
     }
 }
 
-function mapStateToProps({ post }, props) {
-    let lista = objectToArray(post)
-    const { id } = props
+function mapStateToProps({ post }, props) {  
+    const { element } = props
     return {
-        post: lista
-            ? lista.find((item) => {
-                return item.id === id
-            })
-            : []
+        post: post,
+        element
     }
 }
 
-export default connect(mapStateToProps)(Post)
+const mapDispatchToProps = dispatch => ({
+    getPost(id) {
+        dispatch(handleGetPostById( id))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post)
