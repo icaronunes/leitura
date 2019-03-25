@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { objectToArray, formatDate } from '../utils/utils'
 import { handleGetPostById } from '../actions/post'
 import { Link } from 'react-router-dom'
-import { get } from 'http';
 class Post extends PureComponent {
 
     render() {
@@ -13,10 +12,9 @@ class Post extends PureComponent {
             <Link style={{
                 border: '1px',
                 borderColor: 'red',
+                borderBottomWidth: '2px'
             }} to={{
                 pathname: `/post/${post.id}`,
-                search: "?sort=name",
-                hash: "#the-hash",
                 state: { post: post }
             }}>
                 <h3>{post.title}</h3>
