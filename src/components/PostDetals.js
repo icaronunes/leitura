@@ -16,13 +16,16 @@ class PostDetals extends Component {
 
     render() {
         let { comentarios, post } = this.props
-        return (
-            <div>
-                <Post item={post} />
-                {comentarios && comentarios.map((comentario) => {
-                    return <Comments key={comentario.id} item={comentario}/>
-                })}
-            </div>
+        return (<div style={{
+            justifyContent: "center",
+            display: 'center',
+                
+        }}>
+            <Post item={post} />
+            {comentarios && comentarios.map((comentario) => {
+                return <Comments key={comentario.id} item={comentario} />
+            })}
+        </div>
         )
     }
 }
@@ -36,7 +39,7 @@ function mapStateToProps({ post, comentario }, item) {
 
     let comments = objectToArray(comentario).filter(item => {
         return item.parentId === id
-    }).sort((a,b) => b.timestamp - a.timestamp)
+    }).sort((a, b) => b.voteScore - a.voteScore)
 
     return {
         post: posts,

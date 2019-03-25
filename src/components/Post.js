@@ -6,37 +6,33 @@ import { Link } from 'react-router-dom'
 class Post extends PureComponent {
 
     render() {
-        const  post  = this.props.item
+        const post = this.props.item
         console.log('Post', post)
         return (post ?
             <Link style={{
-                border: '1px',
-                borderColor: 'red',
-                borderBottomWidth: '2px'
             }} to={{
                 pathname: `/post/${post.id}`,
                 state: { post: post }
             }}>
-                <h3>{post.title}</h3>
+                <h3 style={{ margin: '0', fontSize: '14px' }}> {post.title}</h3>
                 <span style={{
                     display: 'flex',
                     alignItems: 'center',
-                    textJustify: 'auto'
-                }}><h5>{post.author}</h5>
-                    <h6>{formatDate(post.timestamp)}</h6>
+                    textJustify: 'auto',
+                    margin: '0'
+                }}>
+                    <h5 style={{ margin: '0', fontSize: '12px' }}>{post.author}</h5>
+                    <h6 style={{ margin: '0', marginLeft: '10px', fontSize: '8px' }}>{formatDate(post.timestamp)}</h6>
                 </span>
-                <h6>{post.body}</h6>
+                <h6 style={{fontSize: '10px', marginTop: '10px', marginLeft: '10px' }}>{post.body}</h6>
                 <span style={{
                     display: 'flex',
-                    textAlign: 'right'
-                }} >
+                    alignItems: 'right',    
+                    textAlign: 'right', 
+                    margin: '0'
+                }}>
                     <h6>{post.category}</h6>
-                    <h6 style={{
-                        textAlign: 'right',
-                        alignContent: 'right',
-                        alignSelf: 'right',
-                        position: 'relative'
-                    }}>{post.voteScore}</h6>
+                    <h6>{post.voteScore}</h6>
                 </span>
             </Link> : null
         )

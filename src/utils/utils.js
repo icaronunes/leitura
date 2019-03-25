@@ -29,3 +29,10 @@ export function formatDate(timestamp) {
     const time = d.toLocaleTimeString('en-US')
     return time.substr(0, 5) + time.slice(-2) + ' | ' + d.toLocaleDateString()
 }
+
+
+export function UpcasePrimeiraLetra(title){
+    let primeira = title[0].toUpperCase()
+    let final = title.substr(1, title.size)
+    return primeira + final;
+  }

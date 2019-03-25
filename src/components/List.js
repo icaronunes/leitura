@@ -16,14 +16,15 @@ class List extends Component {
     }
 
     render() {
-        const { posts } = this.props  
+        const { posts } = this.props
         return (
-            <div>
+            <div >
                 <ul>
                     {posts && posts.map((element) => (
                         <li key={element.id} style={{
-                            listStyleType: 'none'
-                        }} >                        
+                            listStyleType: 'none',
+                            justifyContent: "center",
+                        }} >
                             <Post item={element} />
                         </li>
                     ))}

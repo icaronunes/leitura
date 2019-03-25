@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handSortVotePost, handSortDate } from '../actions/post'
+import {UpcasePrimeiraLetra } from '../utils/utils'
+import sort from '../sort.png'
 
 class Nav extends Component {
 
@@ -28,9 +30,11 @@ class Nav extends Component {
           display: 'flex',
           flexDirection: 'row',
           width: '100',
+          height: '45px',
           alignItems: 'justify',
           alignContent: 'center',
           padding: '10px',
+          justifyContent: "center",
           margin: 'auto'
         }}>
           <li key={'home'} style={{
@@ -50,12 +54,19 @@ class Nav extends Component {
                 gridRow: 'auto'
               }} key={categorias.name}>
                 <NavLink to={`/${categorias.name}`} exact activeClassName='active'>
-                  {categorias.name}
+                  {UpcasePrimeiraLetra(categorias.name)}
                 </NavLink>
               </li>
             ))}
+            <img style={{
+              listStyleType: 'none',
+              marginLeft: '10px',
+              gridRow: 'auto',
+              width: "40px",
+              height: "40px"
+              
+            }} src={sort}  onClick={(e) => this.handleSort()} />
         </ul>
-        <button onClick={(e) => this.handleSort()}>botao</button>
       </nav>
     )
   }

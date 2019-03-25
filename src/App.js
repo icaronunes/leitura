@@ -17,7 +17,7 @@ class App extends Component {
 
     return (
       <Router>
-        <Fragment>
+        <Fragment >
           <div >
             <Nav categorias={this.props.categorias} />
             {this.props.categorias.categories
