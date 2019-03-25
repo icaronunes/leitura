@@ -4,7 +4,7 @@ export default function post(state = {}, action) {
     
     switch (action.type) {
         case RECEIVE_POST:
-            return {                
+            return {                  
                 ...action.post
             }
         case REVEIVE_POST_CAGEGORY:

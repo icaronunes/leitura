@@ -3,16 +3,13 @@ import { connect } from 'react-redux'
 import { objectToArray, formatDate } from '../utils/utils'
 import { handleGetPostById } from '../actions/post'
 import { Link } from 'react-router-dom'
+import { get } from 'http';
 class Post extends PureComponent {
 
-    componentDidMount() {
-        let { element, getPost } = this.props        
-        getPost(element)
-    }
-
     render() {
-        const { post }  = this.props.post   
-        return (
+        const  post  = this.props.item
+        console.log('Post', post)
+        return (post ?
             <Link style={{
                 border: '1px',
                 borderColor: 'red',
@@ -43,23 +40,25 @@ class Post extends PureComponent {
                         position: 'relative'
                     }}>{post.voteScore}</h6>
                 </span>
-            </Link>
+            </Link> : null
         )
     }
 }
 
-function mapStateToProps({ post }, props) {  
-    const { element } = props
+function mapStateToProps({ post }, props) {
+    console.log('mapStateToProps - Post', props)
+    const { id } = props
     return {
-        post: post,
-        element
+        post: objectToArray(post),
+        id: id.id
     }
 }
 
 const mapDispatchToProps = dispatch => ({
+
     getPost(id) {
-        dispatch(handleGetPostById( id))
+        dispatch(handleGetPostById(id))
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default connect()(Post)

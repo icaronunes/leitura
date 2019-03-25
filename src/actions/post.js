@@ -25,10 +25,10 @@ function sortVotePost(postSort) {
     }
 }
 
-export function handlegetPost() {
+export function handleGetPost() {
     return (dispatch) => {
         getAll("token")
-            .then(post => {
+            .then(post => {        
                 dispatch(receivePost(post))
             }).catch(e => {
                 console.log("ERRO - handleCategoriaById", e)
@@ -38,9 +38,9 @@ export function handlegetPost() {
 }
 
 export function handleGetPostById(id){
-    return (dispatch) => {
+    return (dispatch) => {      
         get('token', id)
-        .then(post => {
+        .then((post) => {           
             dispatch(receivePost(post))
         })
         .catch(e => {
@@ -64,25 +64,17 @@ export function handleCategoriaById(token, categoria) {
 export function handSortVotePost() {
     return (dispatch, getState) => {
         const { post } = getState()
-        console.log('handSortVotePost', post)
-        let lista = objectToArray(post)
-        console.log('lista', lista)
-        const postSort = lista.sort((a, b) => {
-             console.log('a',a.voteScore)
-             console.log('b',b.voteScore)
-            return b.voteScore - a.voteScore})
-        console.log('handSortVotePost', postSort)
+        let lista = objectToArray(post) 
+        const postSort = lista.sort((a, b) => {             
+            return b.voteScore - a.voteScore})  
         dispatch(sortVotePost(postSort))
     }
 }
 
-
-
 export function handSortDate() {
     return (dispatch, getState) => {
         const { post } = getState()
-        let lista = objectToArray(post)
-        console.log('handSortDate', getState())
+        let lista = objectToArray(post)       
         const postSort = lista.sort((a, b) => b.timestamp - a.timestamp)
         dispatch(sortVotePost(postSort))
     }

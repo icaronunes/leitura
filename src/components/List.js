@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
-import { handleCategoriaById, handlegetPost } from '../actions/post'
+import { handleCategoriaById, handleGetPost } from '../actions/post'
 import { objectToArray } from '../utils/utils'
 
 class List extends Component {
 
     componentDidMount() {
-        const { categoria, categoriaById, getPost } = this.props       
+        const { categoria, categoriaById, getPost } = this.props
         if (categoria !== 'todos') {
             categoriaById("", categoria)
         } else {
@@ -16,15 +16,15 @@ class List extends Component {
     }
 
     render() {
-        const { posts } = this.props
+        const { posts } = this.props  
         return (
             <div>
                 <ul>
                     {posts && posts.map((element) => (
-                        <li style={{
+                        <li key={element.id} style={{
                             listStyleType: 'none'
-                        }} key={element.id}>
-                            <Post element={element.id} />
+                        }} >                        
+                            <Post item={element} />
                         </li>
                     ))}
                 </ul>
@@ -32,8 +32,7 @@ class List extends Component {
         )
     }
 }
-
-function mapStateToProps({ post }, categoria) { 
+function mapStateToProps({ post }, categoria) {
     return {
         categoria: categoria.categoria,
         posts: objectToArray(post)
@@ -45,7 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(handleCategoriaById(token, categoria));
     },
     getPost() {
-        dispatch(handlegetPost())
+        dispatch(handleGetPost())
     }
 })
 

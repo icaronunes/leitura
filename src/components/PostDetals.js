@@ -8,37 +8,35 @@ import Post from './Post'
 class PostDetals extends Component {
 
     componentDidMount() {
-        let id = this.props.match.params.id
-        this.props.getPost(id)
-        this.props.getComments(id)
+        const { getComments } = this.props
+        const { id } = this.props.match.params
+        getComments(id)
     }
 
-    render() {
-
-        let post = this.props.post
-        let comentarios = objectToArray(this.props.comentarios)
-        console.log('PostDetals', post)
+    render() {       
+        let { comentarios, post } = this.props
         return (
             <div>
-                {post && post.id}
+                <Post item={post} />
                 {comentarios && comentarios.map((comentario) => {
                     return <div key={comentario.id}>{comentario.body}</div>
                 })}
-                <div>{}</div>
             </div>
         )
     }
 }
 
 
-function mapStateToProps({ post, comentario }, props) {
-    console.log('mapStateToProps - props', props)
-    console.log('mapStateToProps - post', post)
-    console.log('mapStateToProps - comments', comentario)
+function mapStateToProps({ post, comentario }, item) {
+
+    let id = item.match.params.id
+    let posts = objectToArray(post).filter(item => {
+        return id === item.id
+    })[0]
 
     return {
-        post,
-        comentarios: comentario
+        post: posts,
+        comentarios: objectToArray(comentario)
     }
 }
 

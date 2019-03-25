@@ -8,13 +8,14 @@ const token = 'token'
 export function getAllItens() {
     return (dispatch) => {
         return getAllPostECategorias(token)
-            .then(({ categorias, posts }) => {
+            .then((res) => {
+                const post = objectToArray(res[1])
                 console.group()
-                    console.log('categoria', categorias)
-                    console.log('post', post)
+                    console.log('categoria', res[0])
+                    console.log('post', res[1])
                 console.groupEnd()
-                const post = objectToArray(posts)   //Transformando object em lista  
-                dispatch(receiveCategorias(categorias))
+                //Transformando object em lista  
+                dispatch(receiveCategorias(res[0]))
                 dispatch(receivePost(post))
             })
             .catch(e => {
