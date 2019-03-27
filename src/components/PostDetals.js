@@ -4,7 +4,7 @@ import { handleByParent } from '../actions/comentarios'
 import { handleGetPostById } from '../actions/post'
 import { objectToArray } from '../utils/utils'
 import Post from './Post'
-import Comments from './Comments'
+import Comments from './Comments';
 
 class PostDetals extends Component {
 
@@ -16,34 +16,36 @@ class PostDetals extends Component {
 
     render() {
         let { comentarios, post } = this.props
-        return (<div style={{
-            justifyContent: "center",
-            display: 'center',
-                
-        }}>
-            <Post item={post} />
-            {comentarios && comentarios.map((comentario) => {
-                return <Comments key={comentario.id} item={comentario} />
-            })}
-        </div>
+        return (
+            <div style={{
+                listStyleType: 'none',
+                justifyContent: "center",
+                marginLeft: '16px'
+            }} >
+                <Post item={post} />
+                {comentarios && comentarios.map((comentario) => {
+                    return <Comments key={comentario.id} item={comentario}></Comments>
+                })}
+            </div>
         )
     }
 }
 
+
 function mapStateToProps({ post, comentario }, item) {
-    console.log("mapStateToProps - POSTDETALS", post, comentario)
+
     let id = item.match.params.id
     let posts = objectToArray(post).filter(item => {
         return id === item.id
     })[0]
-
-    let comments = objectToArray(comentario).filter(item => {
-        return item.parentId === id
-    }).sort((a, b) => b.voteScore - a.voteScore)
+    console.log('comentario', comentario)
+    let comentarios = objectToArray(comentario).filter(item =>{
+        return item.deleted === false
+    })
 
     return {
         post: posts,
-        comentarios: comments
+        comentarios: comentarios
     }
 }
 

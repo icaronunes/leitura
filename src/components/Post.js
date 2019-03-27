@@ -8,9 +8,13 @@ class Post extends PureComponent {
     render() {
         const post = this.props.item
         console.log('Post', post)
-        return (post ?
-            <Link style={{
-            }} to={{
+        return (post ? <div style={{
+            padding: '4px',
+            borderStyle: 'solid',
+            marginTop: '6px',
+            borderWidth: '1px'
+        }}>
+            <Link to={{
                 pathname: `/post/${post.id}`,
                 state: { post: post }
             }}>
@@ -24,17 +28,28 @@ class Post extends PureComponent {
                     <h5 style={{ margin: '0', fontSize: '12px' }}>{post.author}</h5>
                     <h6 style={{ margin: '0', marginLeft: '10px', fontSize: '8px' }}>{formatDate(post.timestamp)}</h6>
                 </span>
-                <h6 style={{fontSize: '10px', marginTop: '10px', marginLeft: '10px' }}>{post.body}</h6>
+                <h6 style={{ fontSize: '10px', marginTop: '10px', marginLeft: '10px' }}>{post.body}</h6>
                 <span style={{
-                    display: 'flex',
-                    alignItems: 'right',    
-                    textAlign: 'right', 
-                    margin: '0'
+                    display: 'inline',
+                    margin: '0',
+                    width: '100%'
                 }}>
-                    <h6>{post.category}</h6>
-                    <h6>{post.voteScore}</h6>
+                    <h6 style={{
+                        alignItems: 'left',
+                        textAlign: 'left',
+                        margin: '0',
+                        width: '50%'
+                    }}>{post.category}</h6>
+                    <h6 style={{
+
+                        alignItems: 'right',
+                        textAlign: 'right',
+                        margin: '0',
+                        width: '50%'
+                    }}>{post.voteScore}</h6>
                 </span>
-            </Link> : null
+            </Link>
+        </div> : null
         )
     }
 }

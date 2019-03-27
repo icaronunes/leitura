@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handSortVotePost, handSortDate } from '../actions/post'
-import {UpcasePrimeiraLetra } from '../utils/utils'
+import { UpcasePrimeiraLetra } from '../utils/utils'
 import sort from '../sort.png'
 
 class Nav extends Component {
@@ -13,10 +13,10 @@ class Nav extends Component {
 
   handleSort() {
     const { dispatch } = this.props
-    if(this.state.icon){
-    dispatch(handSortVotePost())   
+    if (this.state.icon) {
+      dispatch(handSortVotePost())
     } else {
-    dispatch(handSortDate())
+      dispatch(handSortDate())
     }
     this.setState((prev, p) => ({
       icon: !prev.icon
@@ -27,45 +27,39 @@ class Nav extends Component {
     return (
       <nav >
         <ul style={{
-          display: 'flex',
-          flexDirection: 'row',
-          width: '100',
-          height: '45px',
-          alignItems: 'justify',
-          alignContent: 'center',
-          padding: '10px',
-          justifyContent: "center",
-          margin: 'auto'
+          backgroundColor: 'yellow',
+          listStyleType: 'none',
+          textAlign: 'center',
+          padding: '0',
+          margin: '0'
         }}>
           <li key={'home'} style={{
-            listStyleType: 'none',
-            marginLeft: '10px'
+            display: 'inline-block',
+            fontSize: '20px',
+            padding: '20px'
           }}>
             <NavLink to={`/`} exact activeClassName='active'>
-              Todos
-              </NavLink>
+              <div>Todos</div>
+            </NavLink>
           </li>
           {this.props.categorias.categories
             &&
             this.props.categorias.categories.map((categorias) => (
               <li style={{
-                listStyleType: 'none',
-                marginLeft: '10px',
-                gridRow: 'auto'
+                display: 'inline-block',
+                fontSize: '20px',
+                padding: '20px'
               }} key={categorias.name}>
                 <NavLink to={`/${categorias.name}`} exact activeClassName='active'>
                   {UpcasePrimeiraLetra(categorias.name)}
                 </NavLink>
               </li>
             ))}
-            <img style={{
-              listStyleType: 'none',
-              marginLeft: '10px',
-              gridRow: 'auto',
-              width: "40px",
-              height: "40px"
-              
-            }} src={sort}  onClick={(e) => this.handleSort()} />
+          <img style={{
+            alignSelf: 'center',
+            width: "26px",
+            height: "26px"
+          }} src={sort} onClick={(e) => this.handleSort()} />
         </ul>
       </nav>
     )

@@ -19,7 +19,7 @@ class List extends Component {
         const { posts } = this.props
         return (
             <div >
-                <ul>
+                <ul >
                     {posts && posts.map((element) => (
                         <li key={element.id} style={{
                             listStyleType: 'none',

@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import { formatDate } from '../utils/utils'
-import { disable } from '../reactnd-project-readable-starter/api-server/comments'
+import { handleDeleteItem } from '../actions/comentarios'
 class Comments extends Component {
 
     handleExcluirComentario(idPost) {
-        console.log(idPost)
-        disable("token", idPost)
-            .then(res => {
-                console.log(res)
-            })
+        console.log('handleExcluirComentario', idPost.id)
+        handleDeleteItem(idPost.id)
     }
 
     handleEditarComentario() {
@@ -54,7 +51,7 @@ class Comments extends Component {
                 }}>{comentario.voteScore}</h6>
 
                 <button onClick={(e) => this.handleEditarComentario(comentario.id)}>Editar</button>
-                <button onClick={(e) => this.handleExcluirComentario(comentario.id)}>Excluir</button>
+                <button onClick={(e) => this.handleExcluirComentario(comentario)}>Excluir</button>
 
             </div>
         )
