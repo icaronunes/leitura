@@ -37,8 +37,7 @@ function mapStateToProps({ post, comentario }, item) {
     let id = item.match.params.id
     let posts = objectToArray(post).filter(item => {
         return id === item.id
-    })[0]
-    console.log('comentario', comentario)
+    })[0]   
     let comentarios = objectToArray(comentario).filter(item =>{
         return item.deleted === false
     })
