@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { objectToArray, formatDate } from '../utils/utils'
 import { handleGetPostById } from '../actions/post'
 import { Link } from 'react-router-dom'
+
 class Post extends PureComponent {
 
     render() {
