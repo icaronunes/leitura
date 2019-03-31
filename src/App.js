@@ -5,7 +5,7 @@ import './App.css';
 import Nav from './components/Nav'
 import List from './components/List'
 import PostDetals from './components/PostDetals'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class App extends Component {
 
@@ -22,12 +22,20 @@ class App extends Component {
             <Nav categorias={this.props.categorias} />
             {this.props.categorias.categories
               && this.props.categorias.categories.map((element) => {
-                return <Route key={element.path} path={`/${element.path}`} exact render={() => <List categoria={element.name}/>} />
+                return <Route key={element.path} path={`/${element.path}`} exact render={() => <List categoria={element.name} />} />
               })}
-              {this.props.categorias.categories && 
-              <Route path='/' exact render={() => <List categoria={"todos"}/>} />}
-              <Route path='/post/:id' exact component={PostDetals} />
+            {this.props.categorias.categories &&
+              <Route path='/' exact render={() => <List categoria={"todos"} />} />}
+            <Route path='/post/:id' exact component={PostDetals} />
           </div>
+          <Link
+            className="open-add"
+            to={{
+              pathname: '/add',
+              state: { books: 'this.state.books' }
+            }}
+          > <button />
+          </Link>
         </Fragment>
       </Router>
     );

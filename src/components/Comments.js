@@ -1,33 +1,31 @@
 import React, { Component } from 'react'
 import { formatDate } from '../utils/utils'
-import { handleDeleteItem, handleEditComentario } from '../actions/comentarios'
+import { handleDeleteItem } from '../actions/comentarios'
 import { connect } from 'react-redux'
 import EditComment from './EditComment'
-
 
 class Comments extends Component {
 
     state = ({
-        edit: true,
-        body: ''
+        edit: false,
     })
 
     handleExcluirComentario(idPost) {
-        console.log('handleExcluirComentario', this.props)
         let { dispatch } = this.props
         dispatch(handleDeleteItem(idPost.id))
     }
 
-    handleEditarComentario() {
-        console.log('handleEditarComentario', this.props)
-        let { dispatch } = this.props
-        dispatch(handleEditComentario)
+    handleEditarComentario = () => {
+        this.setState((prev, props) => ({
+            edit: !prev.edit
+        }))
     }
 
     render() {
         let comentario = this.props.item
 
-        return (this.state.edit ? <EditComment item={comentario}/>:
+        return (this.state.edit ? <EditComment item={comentario}
+            handleEditarSave={this.handleEditarComentario} /> :
             <div style={{
                 border: "3px",
                 borderTopStyle: "dotted",

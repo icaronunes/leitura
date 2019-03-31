@@ -1,6 +1,5 @@
 import { getByParent, disable, edit } from '../reactnd-project-readable-starter/api-server/comments'
-
-export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
+import {  RECEIVE_COMMENTS, UPDATE } from '../reducers/comentarios'
 
 export function handleByParent(idParent) {
     return (dispatch) => {    
@@ -15,28 +14,34 @@ export function handleByParent(idParent) {
 }
 
 function receiveComenario(comentario) {
-
     return {
         type: RECEIVE_COMMENTS,
         comments: comentario
     }
 }
 
+function updateCometario(){
+    return {
+        type: UPDATE
+    }
+}
+
+
 export function handleDeleteItem(id) {
     return (dispatch) => {
         disable('token', id)   
             .then((item) => {                
-                dispatch(receiveComenario(null)) })
+                dispatch(receiveComenario(item)) })
             .catch(e => { console.log("Erro - handleDeleteItem", e) })
     }
 }
 
-export function handleEditComentario(post){
+export function handleEditComentario(id, body){
     return (dispatch) => {
-        edit('token', post)
+        edit('token', id, body)
         .then(item => {
-            dispatch(receiveComenario(post))            
+            dispatch(updateCometario())
+                        
         })
     }
-
 }
