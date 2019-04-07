@@ -5,12 +5,13 @@ import './App.css';
 import Nav from './components/Nav'
 import List from './components/List'
 import PostDetals from './components/PostDetals'
+import NewPost from './components/NewPost'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class App extends Component {
 
   componentDidMount() {
-    this.props.dispatch(getAllItens())
+    this.props.dispatch(getAllItens()) // Chamar somente uma vez, depois pegar do state
   }
 
   render() {
@@ -27,12 +28,12 @@ class App extends Component {
             {this.props.categorias.categories &&
               <Route path='/' exact render={() => <List categoria={"todos"} />} />}
             <Route path='/post/:id' exact component={PostDetals} />
+            <Route path='/add' exact render={() => <NewPost categorias={this.props.categorias} /> }  />
           </div>
           <Link
             className="open-add"
             to={{
-              pathname: '/add',
-              state: { books: 'this.state.books' }
+              pathname: '/add'
             }}
           > <button />
           </Link>
