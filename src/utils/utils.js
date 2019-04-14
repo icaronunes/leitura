@@ -5,8 +5,7 @@ export function getAllPostECategorias(token) {
     return Promise.all([
         getAllCategorias(token),
         getAllPost(token)
-    ]).then((post) => {
-      //  console.log('[categorias, post]', post[0], post[1])
+    ]).then((post) => {     
         return (post)
     })
         .catch(e => {

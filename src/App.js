@@ -23,12 +23,13 @@ class App extends Component {
             <Nav categorias={this.props.categorias} />
             {this.props.categorias.categories
               && this.props.categorias.categories.map((element) => {
-                return <Route key={element.path} path={`/${element.path}`} exact render={() => <List categoria={element.name} />} />
+                return <Route key={element.path} path={`/${element.path}`}
+                  exact render={() => <List categoria={element.name} />} />
               })}
             {this.props.categorias.categories &&
               <Route path='/' exact render={() => <List categoria={"todos"} />} />}
             <Route path='/post/:id' exact component={PostDetals} />
-            <Route path='/add' exact render={() => <NewPost categorias={this.props.categorias} /> }  />
+            <Route path='/add' exact render={() => <NewPost categorias={this.props.categorias} />} />
           </div>
           <Link
             className="open-add"

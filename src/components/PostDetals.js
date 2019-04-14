@@ -42,7 +42,7 @@ function mapStateToProps({ post, comentario }, item) {
     let comentarios = objectToArray(comentario).filter(item => {
         return (item.parentId === id && item.deleted === false)
     })
-   
+
     return {
         post: posts,
         comentarios: comentarios

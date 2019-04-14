@@ -6,20 +6,12 @@ import { objectToArray } from '../utils/utils'
 
 class List extends Component {
 
-    componentDidMount() {
-        const { categoria, categoriaById, getPost } = this.props
-        if (categoria !== 'todos') {
-            categoriaById("", categoria)
-        } else {
-            getPost()
-        }
-    }
-
     render() {
         const { posts } = this.props
+        console.log('List Props', this.props)
         return (
-            <div >
-                <ul >
+            <div>
+                <ul>
                     {posts && posts.map((element) => (
                         <li key={element.id} style={{
                             listStyleType: 'none',
@@ -33,10 +25,17 @@ class List extends Component {
         )
     }
 }
+
 function mapStateToProps({ post }, categoria) {
-    return {
-        categoria: categoria.categoria,
-        posts: objectToArray(post)
+    console.log("List", post)
+    console.log("List", categoria.categoria)
+    if (categoria.categoria !== 'todos') {
+        return {
+            posts: objectToArray(post).filter((item) =>
+                item.category === categoria.categoria)
+        }
+    } else {
+        return { posts: objectToArray(post) }
     }
 }
 

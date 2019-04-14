@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
-import { add } from '../reactnd-project-readable-starter/api-server/posts'
+import { connect } from 'react-redux'
 import { generateUID } from '../utils/utils'
+import { handleAddPost } from '../actions/post'
 
-export default class NewPost extends PureComponent {
+class NewPost extends PureComponent {
 
     state = {
         title: '',
@@ -22,17 +23,14 @@ export default class NewPost extends PureComponent {
             timestamp: Date.now(),
             id: generateUID()
         }
-        //console.log(post)
-        add('token', post)
-        .then((res) => {
-            console.log(res)
-        })
+        let dispatch = this.props.dispatch
+        dispatch(handleAddPost(post))
     }
 
     render() {
 
         let categorias = this.props.categorias
-        let body = this.state.body    
+        let body = this.state.body
         return (
             <div >
                 <form onSubmit={this.handleSavePost} >
@@ -41,7 +39,7 @@ export default class NewPost extends PureComponent {
                             title: e.target.value
                         })
                     }} />
-                    Post: <textarea type='text' maxLength={140} name='body' value={body}  onChange={(e) => {
+                    Post: <textarea type='text' maxLength={140} name='body' value={body} onChange={(e) => {
                         this.setState({
                             body: e.target.value
                         })
@@ -52,12 +50,12 @@ export default class NewPost extends PureComponent {
                         })
                     }} />
                     Categoria:
-                    <select name="category" onChange={(e) => {
+                    <select name="category" defaultValue={"category"} onChange={(e) => {
                         this.setState({
                             category: e.target.value
                         })
                     }}>
-                        <option disabled={true} selected={true}>Categoria</option>
+                        <option disabled={true} value={"Categoria"} selected={true} >Categoria</option>
                         {categorias.categories && categorias.categories.map((categoria) => {
                             return <option key={categoria.name} value={categoria.name}>{categoria.name}</option>
                         })}
@@ -68,3 +66,5 @@ export default class NewPost extends PureComponent {
         )
     }
 }
+
+export default connect()(NewPost)

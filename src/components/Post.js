@@ -56,11 +56,10 @@ class Post extends PureComponent {
 }
 
 function mapStateToProps({ post }, props) {
-    console.log('mapStateToProps - Post', props)
-    const { id } = props
+    console.log('mapStateToProps - Post', post)  
     return {
         post: objectToArray(post),
-        id: id.id
+    
     }
 }
 
@@ -71,4 +70,4 @@ const mapDispatchToProps = dispatch => ({
     }
 })
 
-export default connect()(Post)
+export default connect(mapStateToProps)(Post)
