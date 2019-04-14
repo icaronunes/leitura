@@ -8,7 +8,6 @@ class Post extends PureComponent {
 
     render() {
         const post = this.props.item
-        console.log('Post', post)
         return (post ? <div style={{
             padding: '4px',
             borderStyle: 'solid',
@@ -55,8 +54,7 @@ class Post extends PureComponent {
     }
 }
 
-function mapStateToProps({ post }, props) {
-    console.log('mapStateToProps - Post', post)  
+function mapStateToProps({ post }, props) {   
     return {
         post: objectToArray(post),
     

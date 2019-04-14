@@ -7,8 +7,7 @@ import { objectToArray } from '../utils/utils'
 class List extends Component {
 
     render() {
-        const { posts } = this.props
-        console.log('List Props', this.props)
+        const { posts } = this.props   
         return (
             <div>
                 <ul>
@@ -26,9 +25,7 @@ class List extends Component {
     }
 }
 
-function mapStateToProps({ post }, categoria) {
-    console.log("List", post)
-    console.log("List", categoria.categoria)
+function mapStateToProps({ post }, categoria) {  
     if (categoria.categoria !== 'todos') {
         return {
             posts: objectToArray(post).filter((item) =>

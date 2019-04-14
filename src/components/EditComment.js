@@ -29,8 +29,7 @@ class EditComment extends Component {
         handleEditarSave()              
     }
 
-    render() {
-        console.log('body', this.state.body)
+    render() {     
         let comentario = this.props.item
         return (
             <div style={{

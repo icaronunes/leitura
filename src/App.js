@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { getAllItens } from './actions/combine'
+import { getAll } from './reactnd-project-readable-starter/api-server/posts'
 import './App.css';
 import Nav from './components/Nav'
 import List from './components/List'
@@ -11,7 +12,13 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 class App extends Component {
 
   componentDidMount() {
-    this.props.dispatch(getAllItens()) // Chamar somente uma vez, depois pegar do state
+    this.props.dispatch(getAllItens()) 
+    // Chamar somente uma vez, depois pegar do state. Com F5 o state é refeito
+  }
+
+  handleTesteState = (e) => {
+    e.preventDefault()
+    getAll("token")
   }
 
   render() {
@@ -36,8 +43,9 @@ class App extends Component {
             to={{
               pathname: '/add'
             }}
-          > <button />
+          ><button />
           </Link>
+          <button onClick={this.handleTesteState} />
         </Fragment>
       </Router>
     );

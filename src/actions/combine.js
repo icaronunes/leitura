@@ -10,12 +10,12 @@ export function getAllItens() {
         return getAllPostECategorias(token)
             .then((res) => {
                 const post = objectToArray(res[1])
-                console.group()
-                    console.log('categoria', res[0])
-                    console.log('post', res[1])
-                console.groupEnd()            
+                // console.group()
+                //     console.log('categoria', res[0])
+                //     console.log('post', res[1])
+                // console.groupEnd()            
                 dispatch(receiveCategorias(res[0]))
-                dispatch(receivePost(post))
+                dispatch(receivePost(res[1]))
             })
             .catch(e => {
                 console.log('ERRO - combine.js', e)

@@ -14,11 +14,12 @@ export default function post(state = {}, action) {
             }
         case SORT_POST:
             return {
-                ...action.post
+                ...action.post,
             }
         case ADD_POST:
-            console.log('ADD_POST', state)
-            return Object.assign(state, { 2: action.post });
+            return {                
+                ...action.post
+            }
         default:
             return state
     }

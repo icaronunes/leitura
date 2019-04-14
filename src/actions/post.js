@@ -37,8 +37,7 @@ function addPost(post) {
 export function handleAddPost(post) {
     return (dispatch) => {
         add("tokon", post)
-            .then((post) => {
-                console.log('handleAddPost', post)
+            .then((post) => {               
                 dispatch(addPost(post))
             })
             .catch(erro => {
