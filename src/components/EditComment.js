@@ -14,7 +14,6 @@ class EditComment extends Component {
         })
     }
 
-
     handleTextEdit = (e) => {
         e.preventDefault()
         this.setState({
@@ -24,12 +23,12 @@ class EditComment extends Component {
 
     handleTextSubmit(e, comentario) {
         let { dispatch, handleEditarSave } = this.props
-        e.preventDefault()        
+        e.preventDefault()
         dispatch(handleEditComentario(comentario.id, this.state.body))
-        handleEditarSave()              
+        handleEditarSave()
     }
 
-    render() {     
+    render() {
         let comentario = this.props.item
         return (
             <div style={{

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { generateUID } from '../utils/utils'
 import { handleAddPost } from '../actions/post'
-
+import { Link } from 'react-router-dom'
 class NewPost extends PureComponent {
 
     state = {
@@ -14,7 +14,6 @@ class NewPost extends PureComponent {
 
     handleSavePost = (e) => {
         e.preventDefault()
-
         let post = {
             title: this.state.title,
             body: this.state.body,
@@ -23,12 +22,13 @@ class NewPost extends PureComponent {
             timestamp: Date.now(),
             id: generateUID()
         }
-        let dispatch = this.props.dispatch
-        dispatch(handleAddPost(post))
+        let savePost = this.props.savePost
+        savePost(post)
+
     }
 
     render() {
-
+        console.log("NewPost", this.props)
         let categorias = this.props.categorias
         let body = this.state.body
         return (
@@ -60,11 +60,26 @@ class NewPost extends PureComponent {
                             return <option key={categoria.name} value={categoria.name}>{categoria.name}</option>
                         })}
                     </select>
-                    <input type='submit' />
+                    <Link to={{
+                        pathname: `/${this.state.category}`
+                    }}>
+                        <input type='submit' />
+                    </Link>
+
                 </form>
             </div>
         )
     }
 }
 
-export default connect()(NewPost)
+function mapStateToProps(post) {
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    savePost(post) {
+        dispatch(handleAddPost(post))
+    }
+})
+
+export default connect(null, mapDispatchToProps)(NewPost)

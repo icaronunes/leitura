@@ -38,9 +38,6 @@ class Nav extends Component {
             fontSize: '20px',
             padding: '20px'
           }}>
-            <NavLink to={`/`} exact activeClassName='active'>
-              <div>Todos</div>
-            </NavLink>
           </li>
           {this.props.categorias.categories
             &&
@@ -54,12 +51,12 @@ class Nav extends Component {
                   {UpcasePrimeiraLetra(categorias.name)}
                 </NavLink>
               </li>
-            ))}
+            ))}        
           <img style={{
             alignSelf: 'center',
             width: "26px",
             height: "26px"
-          }} src={sort} onClick={(e) => this.handleSort()} />
+          }} src={sort} onClick={() => this.handleSort()} />
         </ul>
       </nav>
     )

@@ -12,13 +12,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 class App extends Component {
 
   componentDidMount() {
-    this.props.dispatch(getAllItens()) 
+    this.props.dispatch(getAllItens())
     // Chamar somente uma vez, depois pegar do state. Com F5 o state é refeito
-  }
-
-  handleTesteState = (e) => {
-    e.preventDefault()
-    getAll("token")
   }
 
   render() {
@@ -33,10 +28,9 @@ class App extends Component {
                 return <Route key={element.path} path={`/${element.path}`}
                   exact render={() => <List categoria={element.name} />} />
               })}
-            {this.props.categorias.categories &&
-              <Route path='/' exact render={() => <List categoria={"todos"} />} />}
             <Route path='/post/:id' exact component={PostDetals} />
             <Route path='/add' exact render={() => <NewPost categorias={this.props.categorias} />} />
+            <Route path='/edit/:id' exact component={NewPost} />
           </div>
           <Link
             className="open-add"
@@ -45,7 +39,6 @@ class App extends Component {
             }}
           ><button />
           </Link>
-          <button onClick={this.handleTesteState} />
         </Fragment>
       </Router>
     );

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
-import { handleCategoriaById, handleGetPost } from '../actions/post'
 import { objectToArray } from '../utils/utils'
 
 class List extends Component {
@@ -35,15 +34,4 @@ function mapStateToProps({ post }, categoria) {
         return { posts: objectToArray(post) }
     }
 }
-
-const mapDispatchToProps = (dispatch) => ({
-    categoriaById(token, categoria) {
-        dispatch(handleCategoriaById(token, categoria));
-    },
-    getPost() {
-        dispatch(handleGetPost())
-    }
-})
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default connect(mapStateToProps)(List)

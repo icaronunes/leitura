@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { handleByParent } from '../actions/comentarios'
 import { handleGetPostById } from '../actions/post'
 import { objectToArray } from '../utils/utils'
-import Post from './Post'
+import PostInfo from './PostInfo'
 import Comments from './Comments';
 
 class PostDetals extends Component {
@@ -17,15 +17,19 @@ class PostDetals extends Component {
     render() {
         let { comentarios, post } = this.props
         return (
+            <div>
             <div style={{
                 listStyleType: 'none',
                 justifyContent: "center",
                 marginLeft: '16px'
             }} >
-                <Post item={post} />
+                <PostInfo item={post} />                
                 {comentarios && comentarios.map((comentario) => {
                     return <Comments key={comentario.id} item={comentario}></Comments>
                 })}
+             
+            </div>
+                
             </div>
         )
     }

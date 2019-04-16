@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { objectToArray, formatDate } from '../utils/utils'
-import { handleGetPostById } from '../actions/post'
 import { Link } from 'react-router-dom'
 
 class Post extends PureComponent {
@@ -60,12 +59,5 @@ function mapStateToProps({ post }, props) {
     
     }
 }
-
-const mapDispatchToProps = dispatch => ({
-
-    getPost(id) {
-        dispatch(handleGetPostById(id))
-    }
-})
 
 export default connect(mapStateToProps)(Post)
