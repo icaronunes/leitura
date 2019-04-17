@@ -25,7 +25,7 @@ class PostDetals extends Component {
             }} >
                 <PostInfo item={post} />                
                 {comentarios && comentarios.map((comentario) => {
-                    return <Comments key={comentario.id} item={comentario}></Comments>
+                    return <Comments key={comentario.id} item={comentario} />
                 })}
              
             </div>
