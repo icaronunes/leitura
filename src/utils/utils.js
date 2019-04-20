@@ -1,10 +1,10 @@
 import { getAll as getAllCategorias } from '../reactnd-project-readable-starter/api-server/categories'
 import { getAll as getAllPost } from '../reactnd-project-readable-starter/api-server/posts'
 
-export function getAllPostECategorias(token) {
+export function getAllPostECategorias() {
     return Promise.all([
-        getAllCategorias(token),
-        getAllPost(token)
+        getAllCategorias(),
+        getAllPost()
     ]).then((post) => {     
         return (post)
     })

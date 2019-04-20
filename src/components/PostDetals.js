@@ -18,18 +18,18 @@ class PostDetals extends Component {
         let { comentarios, post } = this.props
         return (
             <div>
-            <div style={{
-                listStyleType: 'none',
-                justifyContent: "center",
-                marginLeft: '16px'
-            }} >
-                <PostInfo item={post} />                
-                {comentarios && comentarios.map((comentario) => {
-                    return <Comments key={comentario.id} item={comentario} />
-                })}
-             
-            </div>
-                
+                <div style={{
+                    listStyleType: 'none',
+                    justifyContent: "center",
+                    marginLeft: '16px'
+                }} >
+                    <PostInfo item={post} />
+                    {comentarios && comentarios.map((comentario) => {
+                        return <Comments key={comentario.id} item={comentario} />
+                    })}
+
+                </div>
+
             </div>
         )
     }

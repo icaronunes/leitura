@@ -1,4 +1,4 @@
-import { RECEIVE_POST, REVEIVE_POST_CAGEGORY, SORT_POST, ADD_POST } from '../actions/post'
+import { RECEIVE_POST, REVEIVE_POST_CAGEGORY, SORT_POST, ADD_POST, EDIT_POST } from '../actions/post'
 
 export default function post(state = {}, action) {
 
@@ -17,8 +17,12 @@ export default function post(state = {}, action) {
                 ...action.post,
             }
         case ADD_POST:
-            return {                
+            return {
                 ...action.post
+            }
+        case EDIT_POST:
+            return {
+                ...state,
             }
         default:
             return state

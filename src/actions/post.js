@@ -1,9 +1,11 @@
-import { getByCategory, getAll, get, add } from '../reactnd-project-readable-starter/api-server/posts'
+import { getByCategory, getAll, get, add, edit } from '../reactnd-project-readable-starter/api-server/posts'
 import { objectToArray } from '../utils/utils'
+
 export const RECEIVE_POST = 'RECEIVE_POST'
 export const REVEIVE_POST_CAGEGORY = 'REVEIVE_POST_CAGEGORY'
 export const SORT_POST = 'SORT_POST'
 export const ADD_POST = 'ADD_POST'
+export const EDIT_POST = 'EDIT_POST'
 
 export function receivePost(post) {
     return {
@@ -31,13 +33,20 @@ function addPost(post) {
         type: ADD_POST,
         post
     }
+}
 
+function editPost(post) {
+    return {
+        type: EDIT_POST,
+        post
+    }
 }
 
 export function handleAddPost(post) {
+    console.log("handleAddPost", post)
     return (dispatch) => {
-        add("tokon", post)
-            .then((post) => {               
+        add(post)
+            .then((post) => {
                 dispatch(addPost(post))
             })
             .catch(erro => {
@@ -48,7 +57,7 @@ export function handleAddPost(post) {
 
 export function handleGetPost() {
     return (dispatch) => {
-        getAll("token")
+        getAll()
             .then((post) => {
                 dispatch(receivePost(post))
             }).catch(e => {
@@ -61,7 +70,7 @@ export function handleGetPost() {
 export function handleGetPostById(id) {
     console.log("ERRO - handleGetPostById", id)
     return (dispatch) => {
-        get('token', id)
+        get(id)
             .then((post) => {
                 dispatch(receivePost(post))
             })
@@ -71,10 +80,10 @@ export function handleGetPostById(id) {
     }
 }
 
-export function handleCategoriaById(token, categoria) {
+export function handleCategoriaById(categoria) {
     console.log("handleCategoriaById", categoria)
     return (dispatch) => {
-        getByCategory(token, categoria)
+        getByCategory(categoria)
             .then((post) => {
                 dispatch(getCategoriaById(post))
             })
@@ -101,6 +110,18 @@ export function handSortDate() {
         let lista = objectToArray(post)
         const postSort = lista.sort((a, b) => b.timestamp - a.timestamp)
         dispatch(sortVotePost(postSort))
+    }
+}
+
+export function handleEdit(id, post) {
+    return (dispatch) => {
+        edit(id, post)
+            .then((e) => {
+                dispatch(editPost(e))
+            })
+            .catch(e => {
+                console.log("ERRO - handleEdit", e)
+            })
     }
 }
 

@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { generateUID } from '../utils/utils'
-import { handleAddPost } from '../actions/post'
-import { Link } from 'react-router-dom'
-import { EWOULDBLOCK } from 'constants';
+import { handleEdit, handleAddPost } from '../actions/post'
+import { withRouter } from 'react-router-dom'
 class NewPost extends PureComponent {
 
     state = {
@@ -11,6 +10,16 @@ class NewPost extends PureComponent {
         body: '',
         author: '',
         category: '',
+    }
+
+    componentDidMount() {
+        if (this.props.item.location.state != null) {
+            let item = this.props.item.location.state.post
+            this.setItemToState(item)
+            this.setState({
+                id: item.id
+            })
+        }
     }
 
     handleSavePost = (e) => {
@@ -26,10 +35,25 @@ class NewPost extends PureComponent {
         let savePost = this.props.savePost
         savePost(post)
 
+        this.props.history.push(`/${this.state.category}`)
+    }
+
+    handleEditPost = (e) => {
+        e.preventDefault()
+        let post = {
+            title: this.state.title,
+            body: this.state.body,
+            author: this.state.author,
+            category: this.state.category,
+            timestamp: Date.now(),
+            id: this.props.item.match.params.id
+        }
+        let editPost = this.props.editPost
+        editPost(post.id, post)
+        this.props.history.push(`/post/${post.id}`)
     }
 
     setItemToState(item) {
-        console.log('item', item)
         this.setState({
             title: item.title,
             body: item.body,
@@ -38,13 +62,19 @@ class NewPost extends PureComponent {
         })
     }
 
-    render() {
-        console.log("NewPost", this.props)
-        let categorias = this.props.categorias
-        let item = this.props.item.location.state.post
-        let { body, title, author, category } = this.state
+    handleTitle = (e) => {
+        this.setState({
+            title: e.target.value
+        })
+    }
 
-        if (item != null) this.setItemToState(item)
+    render() {     
+        let categorias = this.props.categorias
+        let item = null
+        if (this.props.item.location.state != null) {
+            item = this.props.item.location.state.post
+        }
+        let { body, title, author, category } = this.state
 
         return (
             <div>
@@ -76,44 +106,32 @@ class NewPost extends PureComponent {
                                 return <option key={categoria.name} value={categoria.name}>{categoria.name}</option>
                             })}
                         </select>
-                        <Link to={{
-                            pathname: `/${this.state.category}`
-                        }}>
-                            <input type='submit' />
-                        </Link>
+                        <input type='submit' />
                     </form>
                     :
 
-                    <form onSubmit={this.handleSavePost} >
-                        Titulo: <input type='text' name='title' value={title} onChange={(e) => {
-                            this.setState({
-                                title: e.target.value
-                            })
-                        }} />
+                    <form onSubmit={this.handleEditPost} >
+                        Titulo: <input type='text' name='title' value={title} onChange={this.handleTitle} />
                         Post: <textarea type='text' maxLength={140} name='body' value={body} onChange={(e) => {
                             this.setState({
                                 body: e.target.value
                             })
                         }} />
                         Autor: <input type='text' name='author'
-                        value={author} onChange={(e) => {
-                            this.setState({
-                                author: e.target.value
-                            })
-                        }} />
+                            value={author} onChange={(e) => {
+                                this.setState({
+                                    author: e.target.value
+                                })
+                            }} />
                         Categoria:
-                <select name="category" defaultValue={"category"} onChange={(e) => {
+                        <select name="category" defaultValue={"category"} onChange={(e) => {
                             this.setState({
                                 category: e.target.value
                             })
-                        }}>                            
-                            <option disabled={true} selected={true}  value={category}>{category}</option>
-                        </select>
-                        <Link to={{
-                            pathname: `/${this.state.category}`
                         }}>
-                            <input type='submit' />
-                        </Link>
+                            <option disabled={true} selected={true} value={category}>{category}</option>
+                        </select>
+                        <input type='submit' />
                     </form>}
             </div>
         )
@@ -130,7 +148,10 @@ function mapStateToProps({ post }, item) {
 const mapDispatchToProps = (dispatch) => ({
     savePost(post) {
         dispatch(handleAddPost(post))
+    },
+    editPost(id, post) {
+        dispatch(handleEdit(id, post))
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewPost))

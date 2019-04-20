@@ -22,10 +22,9 @@ class EditComment extends Component {
     }
 
     handleTextSubmit(e, comentario) {
-        let { dispatch, handleEditarSave } = this.props
+        let { dispatch } = this.props
         e.preventDefault()
         dispatch(handleEditComentario(comentario.id, this.state.body))
-        handleEditarSave()
     }
 
     render() {
