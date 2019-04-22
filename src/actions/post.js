@@ -1,5 +1,4 @@
 import { getByCategory, getAll, get, add, edit } from '../reactnd-project-readable-starter/api-server/posts'
-import { objectToArray } from '../utils/utils'
 
 export const RECEIVE_POST = 'RECEIVE_POST'
 export const REVEIVE_POST_CAGEGORY = 'REVEIVE_POST_CAGEGORY'
@@ -10,7 +9,7 @@ export const EDIT_POST = 'EDIT_POST'
 export function receivePost(post) {
     return {
         type: RECEIVE_POST,
-        post
+        post: {post}
     }
 }
 
@@ -96,8 +95,7 @@ export function handleCategoriaById(categoria) {
 export function handSortVotePost() {
     return (dispatch, getState) => {
         const { post } = getState()
-        let lista = objectToArray(post)
-        const postSort = lista.sort((a, b) => {
+        const postSort = post.sort((a, b) => {
             return b.voteScore - a.voteScore
         })
         dispatch(sortVotePost(postSort))
@@ -107,8 +105,7 @@ export function handSortVotePost() {
 export function handSortDate() {
     return (dispatch, getState) => {
         const { post } = getState()
-        let lista = objectToArray(post)
-        const postSort = lista.sort((a, b) => b.timestamp - a.timestamp)
+        const postSort = post.sort((a, b) => b.timestamp - a.timestamp)
         dispatch(sortVotePost(postSort))
     }
 }

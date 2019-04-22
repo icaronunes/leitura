@@ -1,23 +1,26 @@
 import { getByParent, disable, edit } from '../reactnd-project-readable-starter/api-server/comments'
-import {  RECEIVE_COMMENTS, UPDATE } from '../reducers/comentarios'
+import { RECEIVE_COMMENTS, UPDATE } from '../reducers/comentarios'
+import { getComentarioByPost } from '../utils/api'
 
 function receiveComenario(comentario) {
     return {
         type: RECEIVE_COMMENTS,
-        comments: comentario
+        comments: { comentario }
     }
 }
 
-function updateCometario(){
+function updateCometario(comentarios) {
     return {
-        type: UPDATE
+        type: UPDATE,
+        comments: comentarios
     }
 }
 
 export function handleByParent(idParent) {
-    return (dispatch) => {    
-        getByParent(idParent)
+    return (dispatch) => {
+        getComentarioByPost(idParent)
             .then(comentario => {
+                console.log('handleByParent', comentario)
                 dispatch(receiveComenario(comentario))
             })
             .catch(e => {
@@ -28,19 +31,20 @@ export function handleByParent(idParent) {
 
 export function handleDeleteItem(id) {
     return (dispatch) => {
-        disable(id)   
-            .then((item) => {                
-                dispatch(receiveComenario(item)) })
+        disable(id)
+            .then((item) => {
+                dispatch(receiveComenario(item))
+            })
             .catch(e => { console.log("Erro - handleDeleteItem", e) })
     }
 }
 
-export function handleEditComentario(id, body){
+export function handleEditComentario(id, body) {
     return (dispatch) => {
         edit(id, body)
-        .then(item => {
-            dispatch(updateCometario())
-                        
-        })
+            .then(comentarios => {
+                dispatch(updateCometario(comentarios))
+
+            })
     }
 }

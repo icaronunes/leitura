@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { formatDate } from '../utils/utils'
-import { handleDeleteItem } from '../actions/comentarios'
+import { handleDeleteItem, handleEditComentario } from '../actions/comentarios'
 import { connect } from 'react-redux'
 import EditComment from './EditComment'
 
@@ -15,7 +15,9 @@ class Comments extends Component {
         dispatch(handleDeleteItem(idPost.id))
     }
 
-    handleEditarComentario = () => {
+    handleEditarComentario = (id, comentario) => {             
+        let { dispatch } = this.props
+        dispatch(handleEditComentario(id, comentario))        
         this.setState((prev, props) => ({
             edit: !prev.edit
         }))
@@ -69,6 +71,5 @@ class Comments extends Component {
     }
 
 }
-
 
 export default connect()(Comments)

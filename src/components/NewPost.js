@@ -103,6 +103,7 @@ class NewPost extends PureComponent {
                         }}>
                             <option disabled={true} value={"Categoria"} selected={true} >Categoria</option>
                             {categorias.categories && categorias.categories.map((categoria) => {
+                                    if(categoria.name != 'todos')
                                 return <option key={categoria.name} value={categoria.name}>{categoria.name}</option>
                             })}
                         </select>

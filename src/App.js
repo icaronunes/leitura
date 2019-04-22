@@ -12,7 +12,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.dispatch(getAllItens())
-    // Chamar somente uma vez, depois pegar do state. Com F5 o state é refeito
+    // Chamar somente uma vez, depois pegar do state. Com F5 o state é refeito     
   }
 
   render() {

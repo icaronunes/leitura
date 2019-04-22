@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
-import { objectToArray } from '../utils/utils'
 
 class List extends Component {
 
     render() {
-        const { posts } = this.props   
+        const { posts } = this.props
         return (
             <div>
                 <ul>
@@ -24,14 +23,15 @@ class List extends Component {
     }
 }
 
-function mapStateToProps({ post }, categoria) {  
+function mapStateToProps({ post }, categoria) {
+    let posts = post.post ? post.post : []
     if (categoria.categoria !== 'todos') {
         return {
-            posts: objectToArray(post).filter((item) =>
+            posts: posts.filter((item) =>
                 item.category === categoria.categoria)
         }
     } else {
-        return { posts: objectToArray(post) }
+        return { posts: posts }
     }
 }
 export default connect(mapStateToProps)(List)

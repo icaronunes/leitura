@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { formatDate } from '../utils/utils'
-import { handleEditComentario } from '../actions/comentarios'
 import { connect } from 'react-redux'
 
 class EditComment extends Component {
@@ -22,9 +21,9 @@ class EditComment extends Component {
     }
 
     handleTextSubmit(e, comentario) {
-        let { dispatch } = this.props
+        let { handleEditarSave } = this.props
         e.preventDefault()
-        dispatch(handleEditComentario(comentario.id, this.state.body))
+        handleEditarSave(comentario.id, this.state.body)
     }
 
     render() {
@@ -38,7 +37,6 @@ class EditComment extends Component {
                 alignItems: 'justify',
                 alignContent: 'center',
                 display: 'block',
-                alignItems: 'center'
             }}>
                 <span style={{
                     display: 'flex',
@@ -64,10 +62,8 @@ class EditComment extends Component {
                         onChange={this.handleTextEdit}
                         maxLength={280}
                     />
-
                     <button type='submit'>Enviar</button>
                 </form>
-
                 <h6 style={{
                     margin: "2px"
                 }}>{comentario.voteScore}</h6>

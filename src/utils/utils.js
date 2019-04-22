@@ -1,11 +1,10 @@
-import { getAll as getAllCategorias } from '../reactnd-project-readable-starter/api-server/categories'
-import { getAll as getAllPost } from '../reactnd-project-readable-starter/api-server/posts'
+import { getAllPost, getAllCategory } from './api'
 
 export function getAllPostECategorias() {
     return Promise.all([
-        getAllCategorias(),
+        getAllCategory(),
         getAllPost()
-    ]).then((post) => {     
+    ]).then((post) => {
         return (post)
     })
         .catch(e => {
@@ -30,13 +29,13 @@ export function formatDate(timestamp) {
 }
 
 
-export function UpcasePrimeiraLetra(title){
+export function UpcasePrimeiraLetra(title) {
     let primeira = title[0].toUpperCase()
     let final = title.substr(1, title.size)
     return primeira + final;
-  }
+}
 
 
-export function generateUID () {
+export function generateUID() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-  }
+}

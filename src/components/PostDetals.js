@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { handleByParent } from '../actions/comentarios'
-import { handleGetPostById } from '../actions/post'
-import { objectToArray } from '../utils/utils'
 import PostInfo from './PostInfo'
 import Comments from './Comments';
 
@@ -11,11 +9,12 @@ class PostDetals extends Component {
     componentDidMount() {
         const { getComments } = this.props
         const { id } = this.props.match.params
-        getComments(id)
+        getComments('8xf0y6ziyjabvozdd253nd')
     }
 
     render() {
         let { comentarios, post } = this.props
+
         return (
             <div>
                 <div style={{
@@ -37,28 +36,24 @@ class PostDetals extends Component {
 
 
 function mapStateToProps({ post, comentario }, item) {
-
+    console.log('PostDetails', post, comentario, item.match.params.id)
+    let posts = post.post ? post.post : []
+    let comentarios = comentario.comentario ? comentario.comentario : []
     let id = item.match.params.id
-    let posts = objectToArray(post).filter(item => {
-        return id === item.id
-    })[0]
 
-    let comentarios = objectToArray(comentario).filter(item => {
-        return (item.parentId === id && item.deleted === false)
-    })
+    posts = posts.filter(item =>
+        id === item.id
+    )
 
     return {
         post: posts,
-        comentarios: comentarios
+        comentarios
     }
 }
 
 const mapDispatchToProps = dispatch => ({
     getComments(id) {
         dispatch(handleByParent(id));
-    },
-    getPost(id) {
-        dispatch(handleGetPostById(id))
     }
 })
 
