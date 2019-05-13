@@ -12,7 +12,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.dispatch(getAllItens())
-    // Chamar somente uma vez, depois pegar do state. Com F5 o state é refeito     
+    // Chamar somente uma vez, depois pegar do state. Com F5 o state é refeito
   }
 
   render() {
@@ -27,10 +27,12 @@ class App extends Component {
                 return <Route key={element.path} path={`/${element.path}`}
                   exact render={() => <List categoria={element.name} />} />
               })}
+            <Route path='/' exact render={() => <List categoria={"todos"} />} />
+
             <Route path='/edit/:id' exact component={NewPost} />
             <Route path='/post/:id' exact component={PostDetals} />
             <Route path='/add' exact render={() => <NewPost categorias={this.props.categorias} />} />
-            <Route path='/' exact render={() => <List categoria={"todos"} />} />
+
           </div>
           <Link
             className="open-add"

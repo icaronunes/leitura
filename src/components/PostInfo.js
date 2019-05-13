@@ -7,7 +7,7 @@ import { MdEdit } from 'react-icons/md';
 class PostInfo extends PureComponent {
 
     render() {
-        const post = this.props.item
+        const post = this.props.item        
         return (post ? <div style={{
             padding: '4px',
             borderStyle: 'solid',

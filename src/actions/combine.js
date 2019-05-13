@@ -5,11 +5,10 @@ import { getAllPostECategorias } from '../utils/utils'
 export function getAllItens() {
     return (dispatch) => {
         return getAllPostECategorias()
-            .then((res) => {    
-                console.log('combine.js', res)                   
-                dispatch(receiveCategorias(res[0]))
+            .then((res) => {                       
                 dispatch(receivePost(res[1]))
-            })
+                dispatch(receiveCategorias(res[0]))
+            })                    
             .catch(e => {
                 console.log('ERRO - getAllItens', e)
             })

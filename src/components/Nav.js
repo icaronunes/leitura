@@ -37,7 +37,9 @@ class Nav extends Component {
             display: 'inline-block',
             fontSize: '20px',
             padding: '20px'
-          }}>
+          }}><NavLink to={`/`} exact activeClassName='active'>
+              Todos
+            </NavLink>
           </li>
           {this.props.categorias.categories
             &&
@@ -51,7 +53,7 @@ class Nav extends Component {
                   {UpcasePrimeiraLetra(categorias.name)}
                 </NavLink>
               </li>
-            ))}        
+            ))}
           <img style={{
             alignSelf: 'center',
             width: "26px",

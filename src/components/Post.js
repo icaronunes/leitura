@@ -2,11 +2,13 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../utils/utils'
 import { Link } from 'react-router-dom'
+import { handleGetPostById } from '../actions/post'
 
 class Post extends PureComponent {
 
     render() {
         const post = this.props.item
+        console.log("POST", post)
         return (post ? <div style={{
             padding: '4px',
             borderStyle: 'solid',

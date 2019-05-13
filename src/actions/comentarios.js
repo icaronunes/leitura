@@ -1,4 +1,4 @@
-import { getByParent, disable, edit } from '../reactnd-project-readable-starter/api-server/comments'
+import {  disable, edit } from '../reactnd-project-readable-starter/api-server/comments'
 import { RECEIVE_COMMENTS, UPDATE } from '../reducers/comentarios'
 import { getComentarioByPost } from '../utils/api'
 
@@ -19,8 +19,7 @@ function updateCometario(comentarios) {
 export function handleByParent(idParent) {
     return (dispatch) => {
         getComentarioByPost(idParent)
-            .then(comentario => {
-                console.log('handleByParent', comentario)
+            .then(comentario => {                
                 dispatch(receiveComenario(comentario))
             })
             .catch(e => {

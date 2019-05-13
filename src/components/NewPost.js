@@ -13,8 +13,9 @@ class NewPost extends PureComponent {
     }
 
     componentDidMount() {
+        console.log("new Post", this.props)
         if (this.props.item.location.state != null) {
-            let item = this.props.item.location.state.post
+            let item = this.props.item.location.state.post          
             this.setItemToState(item)
             this.setState({
                 id: item.id
@@ -34,9 +35,10 @@ class NewPost extends PureComponent {
         }
         let savePost = this.props.savePost
         savePost(post)
-
+        console.log('savePòst', post)
         this.props.history.push(`/${this.state.category}`)
     }
+
 
     handleEditPost = (e) => {
         e.preventDefault()
@@ -49,7 +51,7 @@ class NewPost extends PureComponent {
             id: this.props.item.match.params.id
         }
         let editPost = this.props.editPost
-        editPost(post.id, post)
+        editPost(post.id, post)       
         this.props.history.push(`/post/${post.id}`)
     }
 
@@ -68,14 +70,13 @@ class NewPost extends PureComponent {
         })
     }
 
-    render() {     
+    render() {
         let categorias = this.props.categorias
         let item = null
         if (this.props.item.location.state != null) {
             item = this.props.item.location.state.post
         }
-        let { body, title, author, category } = this.state
-
+        let { body, title, author, category } = this.state           
         return (
             <div>
                 {item == null ?
@@ -101,10 +102,10 @@ class NewPost extends PureComponent {
                                 category: e.target.value
                             })
                         }}>
-                            <option disabled={true} value={"Categoria"} selected={true} >Categoria</option>
+                            <option disabled={true} defaultValue={"Categoria"} selected={true} >Categoria</option>
                             {categorias.categories && categorias.categories.map((categoria) => {
-                                    if(categoria.name != 'todos')
-                                return <option key={categoria.name} value={categoria.name}>{categoria.name}</option>
+                                if (categoria.name != 'todos')
+                                    return <option key={categoria.name} value={categoria.name}>{categoria.name}</option>
                             })}
                         </select>
                         <input type='submit' />
@@ -118,8 +119,8 @@ class NewPost extends PureComponent {
                                 body: e.target.value
                             })
                         }} />
-                        Autor: <input type='text' name='author'
-                            value={author} onChange={(e) => {
+                        Autor: <input type='text' name='author' disabled={true} value={author}
+                            onChange={(e) => {
                                 this.setState({
                                     author: e.target.value
                                 })

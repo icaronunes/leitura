@@ -1,4 +1,5 @@
-import { getByCategory, getAll, get, add, edit } from '../reactnd-project-readable-starter/api-server/posts'
+import { getAll, add, edit, } from '../reactnd-project-readable-starter/api-server/posts'
+import { getPostByCategory, getAllPost, getPostById, getSavePost } from '../utils/api'
 
 export const RECEIVE_POST = 'RECEIVE_POST'
 export const REVEIVE_POST_CAGEGORY = 'REVEIVE_POST_CAGEGORY'
@@ -9,7 +10,7 @@ export const EDIT_POST = 'EDIT_POST'
 export function receivePost(post) {
     return {
         type: RECEIVE_POST,
-        post: {post}
+        post: post
     }
 }
 
@@ -37,16 +38,18 @@ function addPost(post) {
 function editPost(post) {
     return {
         type: EDIT_POST,
-        post
+        post: post
     }
 }
 
 export function handleAddPost(post) {
     console.log("handleAddPost", post)
     return (dispatch) => {
-        add(post)
-            .then((post) => {
+        getSavePost(post)
+            .then((post) => {   
+                console.log("handleAddPost", post)
                 dispatch(addPost(post))
+                //Retorna todas os posts 
             })
             .catch(erro => {
                 console.log("erro - handleAddPOst", erro)
@@ -67,10 +70,10 @@ export function handleGetPost() {
 }
 
 export function handleGetPostById(id) {
-    console.log("ERRO - handleGetPostById", id)
     return (dispatch) => {
-        get(id)
+        getPostById(id)
             .then((post) => {
+                console.log("getPostById", post)
                 dispatch(receivePost(post))
             })
             .catch(e => {
@@ -112,9 +115,22 @@ export function handSortDate() {
 
 export function handleEdit(id, post) {
     return (dispatch) => {
-        edit(id, post)
+        edit('token', id, post)
             .then((e) => {
                 dispatch(editPost(e))
+            })
+            .catch(e => {
+                console.log("ERRO - handleEdit", e)
+            })
+    }
+}
+
+export function getByCategory(categoria) {
+    return (dispatch) => {
+        getPostByCategory(categoria)
+            .then((e) => {
+                console.log("handleEdit", e)
+                dispatch(receivePost(e))
             })
             .catch(e => {
                 console.log("ERRO - handleEdit", e)

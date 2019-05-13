@@ -1,15 +1,26 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { getByCategory, handleGetPost } from '../actions/post'
 import Post from './Post'
 
 class List extends Component {
 
+    componentDidMount() {
+        const categoria = this.props.categoria
+        if (categoria.categoria === 'todos') {
+            this.props.getAllPost()
+        } else {
+            this.props.byCategory(categoria.categoria)
+        }
+    }
+
     render() {
         const { posts } = this.props
+        console.log("List", this.props)
         return (
             <div>
                 <ul>
-                    {posts && posts.map((element) => (
+                    {Object.getPrototypeOf(posts) !== Object.prototype && posts.map((element) => (
                         <li key={element.id} style={{
                             listStyleType: 'none',
                             justifyContent: "center",
@@ -24,14 +35,19 @@ class List extends Component {
 }
 
 function mapStateToProps({ post }, categoria) {
-    let posts = post.post ? post.post : []
-    if (categoria.categoria !== 'todos') {
-        return {
-            posts: posts.filter((item) =>
-                item.category === categoria.categoria)
-        }
-    } else {
-        return { posts: posts }
+    return {
+        posts: post,
+        categoria
     }
 }
-export default connect(mapStateToProps)(List)
+
+const mapDispatchToProps = (dispatch) => ({
+    byCategory(categoria) {
+        dispatch(getByCategory(categoria))
+    },
+    getAllPost() {
+        dispatch(handleGetPost())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)
