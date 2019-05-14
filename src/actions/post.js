@@ -1,5 +1,4 @@
-import { getAll, add, edit, } from '../reactnd-project-readable-starter/api-server/posts'
-import { getPostByCategory, getAllPost, getPostById, getSavePost } from '../utils/api'
+import { getPostByCategory, getAllPost, getPostById, getSavePost, editPostById } from '../utils/api'
 
 export const RECEIVE_POST = 'RECEIVE_POST'
 export const REVEIVE_POST_CAGEGORY = 'REVEIVE_POST_CAGEGORY'
@@ -59,7 +58,7 @@ export function handleAddPost(post) {
 
 export function handleGetPost() {
     return (dispatch) => {
-        getAll()
+        getAllPost()
             .then((post) => {
                 dispatch(receivePost(post))
             }).catch(e => {
@@ -115,8 +114,9 @@ export function handSortDate() {
 
 export function handleEdit(id, post) {
     return (dispatch) => {
-        edit('token', id, post)
+        editPostById(id, post)
             .then((e) => {
+                console.log("handleEdit - Editada", e)
                 dispatch(editPost(e))
             })
             .catch(e => {

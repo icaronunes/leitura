@@ -51,6 +51,7 @@ class NewPost extends PureComponent {
             id: this.props.item.match.params.id
         }
         let editPost = this.props.editPost
+        console.log("newPost - edit", post)
         editPost(post.id, post)       
         this.props.history.push(`/post/${post.id}`)
     }

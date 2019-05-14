@@ -56,7 +56,7 @@ function getPostById(id) {
         })
 }
 
-function getSavePost(post) {  
+function getSavePost(post) {
     return fetch(`http://localhost:3001/posts/`,
         {
             method: 'POST',
@@ -66,9 +66,24 @@ function getSavePost(post) {
             },
             body: JSON.stringify(post)
         })
-        .then(res => res.json())
-        .then(res => console.log("retorno save", res));
+        .then(res => res.json())       
 }
+
+function editPostById(id, post) {    
+    return fetch(`http://localhost:3001/posts/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        },
+        'body': JSON.stringify(post)
+    }).then(res => {       
+        res.json();
+    })
+    
+}
+
+
 
 module.exports = {
     getAllPost,
@@ -76,5 +91,6 @@ module.exports = {
     getComentarioByPost,
     getPostByCategory,
     getPostById,
-    getSavePost
+    getSavePost,
+    editPostById
 }
