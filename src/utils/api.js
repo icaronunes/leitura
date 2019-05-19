@@ -129,6 +129,26 @@ function getVotePost(id, vote) {
         })       
 }
 
+function voteComment(id, vote) {
+    return fetch(`http://localhost:3001/comments/${id}`,
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(vote)
+        })
+        .then(res => {
+            console.log(res) 
+            return res.json()
+        })
+        .catch(e => {
+            console.log('erro', e) 
+        })       
+}
+
+
 module.exports = {
     getAllPost,
     getAllCategory,
@@ -139,6 +159,6 @@ module.exports = {
     editPostById,
     deletePostById,
     editCommentById,
-    getVotePost
-
+    getVotePost,
+    voteComment
 }

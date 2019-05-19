@@ -10,12 +10,16 @@ export default function comentarios(state = {}, action) {
             return action.comments
 
         case UPDATE:
-            return {
-                ...state
-            }
+            let alterado = state.map(item => {
+                if (item.id === action.comments.id) {
+                    item = action.comments
+                }
+                return item
+            })
+            return alterado
 
         case DELETE:
-            let alterado = state.map(item => {
+            let alterado2 = state.map(item => {
                 if (item.id === action.comments.id) {
                     item = action.comments
                 }
