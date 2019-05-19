@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handSortVotePost, handSortDate } from '../actions/post'
 import { UpcasePrimeiraLetra } from '../utils/utils'
@@ -54,15 +54,18 @@ class Nav extends Component {
                 </NavLink>
               </li>
             ))}
+        
+          {!this.props.location.pathname.includes('/post')  && 
           <img style={{
             alignSelf: 'center',
             width: "26px",
             height: "26px"
           }} src={sort} onClick={() => this.handleSort()} />
+        }
         </ul>
       </nav>
     )
   }
 }
 
-export default connect()(Nav)
+export default withRouter(connect()(Nav))

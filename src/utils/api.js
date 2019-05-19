@@ -106,7 +106,6 @@ function editCommentById(id, comments) {
     }).then(res => {       
        return res.json();
     })
-    
 }
 
 
