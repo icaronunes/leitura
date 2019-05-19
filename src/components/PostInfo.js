@@ -2,12 +2,19 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../utils/utils'
 import { Link } from 'react-router-dom'
-import { MdEdit } from 'react-icons/md';
+import { MdEdit, MdArrowDownward, MdArrowUpward } from 'react-icons/md';
+import { setVotePost } from '../actions/post'
 
 class PostInfo extends PureComponent {
 
+    handleVote = (id, vote) => {
+        let { changeVote} = this.props             
+        changeVote(id, {option: vote})             
+    }
+
     render() {
-        const post = this.props.item        
+        const post = this.props.item
+        console.log("postInfo", post)
         return (post ? <div style={{
             padding: '4px',
             borderStyle: 'solid',
@@ -17,7 +24,7 @@ class PostInfo extends PureComponent {
             <h3 style={{ margin: '0', fontSize: '14px' }}> {post.title}</h3>
             <span style={{
                 display: 'flex',
-                alignItems: 'center',                
+                alignItems: 'center',
                 margin: '0'
             }}>
                 <h5 style={{ margin: '0', fontSize: '12px' }}>{post.author}</h5>
@@ -26,37 +33,57 @@ class PostInfo extends PureComponent {
                     pathname: `/edit/${post.id}`,
                     state: { post: post }
                 }}>
-                <MdEdit style={{
-                    alignItems: 'right',
-                    textAlign: 'right',
-                    margin: '0',
-                    width: '50%'                    
-                }}/>
+                    <MdEdit style={{
+                        alignItems: 'right',
+                        textAlign: 'right',
+                        margin: '0',
+                        width: '100%'
+                    }} />
                 </Link>
             </span>
-            <h6 style={{ fontSize: '10px', marginTop: '10px', marginLeft: '10px' }}>{post.body}</h6>
+            <h6 style={{ fontSize: '10px', marginTop: '10px', marginLeft: '10px', marginBottom: '5px' }}>{post.body}</h6>
             <span style={{
                 display: 'inline',
                 margin: '0',
-                width: '100%'
             }}>
                 <h6 style={{
                     alignItems: 'left',
                     textAlign: 'left',
                     margin: '0',
-                    width: '50%'
+                    width: '0'
                 }}>{post.category}</h6>
-                <h6 style={{
-
-                    alignItems: 'right',
-                    textAlign: 'right',
-                    margin: '0',
-                    width: '50%'
-                }}>{post.voteScore}</h6>
+                <span>
+                    <h6 style={{
+                        alignItems: 'right',
+                        textAlign: 'right',
+                        marginTop: '10px',
+                        marginBottom: '10px',
+                        width: '0'
+                    }}>{post.voteScore}
+                    </h6>
+                    <button onClick={(e) => { this.handleVote(post.id, 'downVote')}}>
+                        <MdArrowDownward style={{
+                            alignItems: 'right',
+                            textAlign: 'right',
+                        }} />
+                    </button>
+                    <button onClick={(e) => { this.handleVote(post.id,'upVote')}}>
+                        <MdArrowUpward style={{
+                            alignItems: 'right',
+                            textAlign: 'right',
+                        }} />
+                    </button>
+                </span>
             </span>
         </div> : null
         )
     }
 }
 
-export default connect()(PostInfo)
+const mapDispatchToProps = dispatch => ({
+    changeVote(id, vote) {
+        dispatch(setVotePost(id, vote));
+    }
+})
+
+export default connect(null, mapDispatchToProps)(PostInfo)

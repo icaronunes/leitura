@@ -52,6 +52,7 @@ function getPostById(id) {
             headers: { 'Authorization': token }
         })
         .then(res => {
+            console.log('getPostById', `http://localhost:3001/posts/${id}`)
             return res.json()
         })
 }
@@ -108,6 +109,26 @@ function editCommentById(id, comments) {
     
 }
 
+
+function getVotePost(id, vote) {
+    return fetch(`http://localhost:3001/posts/${id}`,
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(vote)
+        })
+        .then(res => {
+            console.log(res) 
+            return res.json()
+        })
+        .catch(e => {
+            console.log('erro', e) 
+        })       
+}
+
 module.exports = {
     getAllPost,
     getAllCategory,
@@ -117,5 +138,7 @@ module.exports = {
     getSavePost,
     editPostById,
     deletePostById,
-    editCommentById
+    editCommentById,
+    getVotePost
+
 }

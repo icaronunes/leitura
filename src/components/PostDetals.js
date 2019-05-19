@@ -5,11 +5,12 @@ import PostInfo from './PostInfo'
 import Comments from './Comments';
 import { handleGetPostById } from '../actions/post'
 
-class PostDetals extends Component {
+class PostDetails extends Component {
 
     componentDidMount() {
         const { getComments, getPostById } = this.props
-        const { id } = this.props.match.params      
+        const { id } = this.props.match.params     
+        console.log("PostDetals", this.props)
         getPostById(id)
         getComments(id)
     }
@@ -50,4 +51,4 @@ const mapDispatchToProps = dispatch => ({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetals) 
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetails) 

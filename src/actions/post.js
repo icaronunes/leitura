@@ -1,11 +1,5 @@
-import { getPostByCategory, getAllPost, getPostById, getSavePost, editPostById } from '../utils/api'
-
-export const RECEIVE_POST = 'RECEIVE_POST'
-export const REVEIVE_POST_CAGEGORY = 'REVEIVE_POST_CAGEGORY'
-export const SORT_POST = 'SORT_POST'
-export const ADD_POST = 'ADD_POST'
-export const EDIT_POST = 'EDIT_POST'
-
+import { getPostByCategory, getAllPost, getPostById, getSavePost, editPostById, getVotePost } from '../utils/api'
+import { RECEIVE_POST, REVEIVE_POST_CAGEGORY, SORT_POST, ADD_POST, EDIT_POST } from '../reducers/post'
 export function receivePost(post) {
     return {
         type: RECEIVE_POST,
@@ -94,7 +88,7 @@ export function handSortVotePost() {
     return (dispatch, getState) => {
         const { post } = getState()
         console.log('handSortVotePost', post)
-        const postSort = post.sort((a, b) => {
+        let postSort = post.sort((a, b) => {
             return b.voteScore - a.voteScore
         })
         console.log('handSortVotePost', postSort)
@@ -134,6 +128,19 @@ export function getByCategory(categoria) {
             })
             .catch(e => {
                 console.log("ERRO - handleEdit", e)
+            })
+    }
+}
+
+export function setVotePost(id, vote) {  
+    return (dispatch) => {
+        getVotePost(id, vote)
+            .then((post) => {
+                console.log("setVotePost", post)
+                dispatch(editPost(post))
+            })
+            .catch(e => {
+                console.log("ERRO - setVotePost", e)
             })
     }
 }
