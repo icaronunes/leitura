@@ -79,11 +79,34 @@ function editPostById(id, post) {
         'body': JSON.stringify(post)
     }).then(res => {       
         res.json();
+    })    
+}
+
+function deletePostById(id) {    
+    return fetch(`http://localhost:3001/comments/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': token,            
+        }
+    }).then(res => {             
+        res.json();
     })
     
 }
 
-
+function editCommentById(id, comments) {    
+    return fetch(`http://localhost:3001/comments/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        },
+        'body': JSON.stringify(comments)
+    }).then(res => {       
+       return res.json();
+    })
+    
+}
 
 module.exports = {
     getAllPost,
@@ -92,5 +115,7 @@ module.exports = {
     getPostByCategory,
     getPostById,
     getSavePost,
-    editPostById
+    editPostById,
+    deletePostById,
+    editCommentById
 }

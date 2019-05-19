@@ -1,11 +1,18 @@
-import {  disable, edit } from '../reactnd-project-readable-starter/api-server/comments'
-import { RECEIVE_COMMENTS, UPDATE } from '../reducers/comentarios'
-import { getComentarioByPost } from '../utils/api'
+
+import { RECEIVE_COMMENTS, UPDATE, DELETE } from '../reducers/comentarios'
+import { getComentarioByPost, deletePostById, editCommentById } from '../utils/api'
 
 function receiveComenario(comentario) {
     return {
         type: RECEIVE_COMMENTS,
-        comments: { comentario }
+        comments: comentario
+    }
+}
+
+function receiveDetele(comentario) {
+    return {
+        type: DELETE,
+        comments: comentario 
     }
 }
 
@@ -30,9 +37,10 @@ export function handleByParent(idParent) {
 
 export function handleDeleteItem(id) {
     return (dispatch) => {
-        disable(id)
+        deletePostById(id)
             .then((item) => {
-                dispatch(receiveComenario(item))
+                console.log(" handleDeleteItem", item)
+                dispatch(receiveDetele(item))
             })
             .catch(e => { console.log("Erro - handleDeleteItem", e) })
     }
@@ -40,10 +48,9 @@ export function handleDeleteItem(id) {
 
 export function handleEditComentario(id, body) {
     return (dispatch) => {
-        edit(id, body)
+        editCommentById(id, body)
             .then(comentarios => {
-                dispatch(updateCometario(comentarios))
-
+                              
             })
     }
 }

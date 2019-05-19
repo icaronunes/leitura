@@ -34,8 +34,7 @@ class NewPost extends PureComponent {
             id: generateUID()
         }
         let savePost = this.props.savePost
-        savePost(post)
-        console.log('savePòst', post)
+        savePost(post)     
         this.props.history.push(`/${this.state.category}`)
     }
 
@@ -50,8 +49,7 @@ class NewPost extends PureComponent {
             timestamp: Date.now(),
             id: this.props.item.match.params.id
         }
-        let editPost = this.props.editPost
-        console.log("newPost - edit", post)
+        let editPost = this.props.editPost       
         editPost(post.id, post)       
         this.props.history.push(`/post/${post.id}`)
     }
@@ -141,7 +139,7 @@ class NewPost extends PureComponent {
     }
 }
 
-function mapStateToProps({ post }, item) {
+function mapStateToProps({ post, comments }, item) {
     return {
         item,
         post

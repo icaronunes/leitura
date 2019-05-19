@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { formatDate } from '../utils/utils'
-import { handleDeleteItem, handleEditComentario } from '../actions/comentarios'
+import { handleDeleteItem } from '../actions/comentarios'
 import { connect } from 'react-redux'
 import EditComment from './EditComment'
 
@@ -15,19 +15,17 @@ class Comments extends Component {
         dispatch(handleDeleteItem(idPost.id))
     }
 
-    handleEditarComentario = (id, comentario) => {             
-        let { dispatch } = this.props
-        dispatch(handleEditComentario(id, comentario))        
+    handleRevertType = () => { 
+        console.log('handleRevertType', this)                  
         this.setState((prev, props) => ({
             edit: !prev.edit
         }))
     }
-
+    
     render() {
         let comentario = this.props.item
-
-        return (this.state.edit ? <EditComment item={comentario}
-            handleEditarSave={this.handleEditarComentario} /> :
+        console.log('Comments', comentario)
+        return (this.state.edit ? <EditComment item={comentario} revert={this.handleRevertType}/> :
             <div style={{
                 border: "3px",
                 borderTopStyle: "dotted",
@@ -63,13 +61,11 @@ class Comments extends Component {
                     margin: "2px"
                 }}>{comentario.voteScore}</h6>
 
-                <button onClick={(e) => this.handleEditarComentario(comentario.id)}>Editar</button>
+                <button onClick={(e) => this.handleRevertType()}>Editar</button>
                 <button onClick={(e) => this.handleExcluirComentario(comentario)}>Excluir</button>
 
             </div>
         )
     }
-
 }
-
-export default connect()(Comments)
+export default  connect()(Comments)

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { formatDate } from '../utils/utils'
 import { connect } from 'react-redux'
+import { handleEditComentario } from '../actions/comentarios'
+import { withRouter } from 'react-router-dom'
 
 class EditComment extends Component {
     state = {
@@ -20,10 +22,13 @@ class EditComment extends Component {
         })
     }
 
-    handleTextSubmit(e, comentario) {
-        let { handleEditarSave } = this.props
+    handleSaveComentario = (e, comentario) => {
         e.preventDefault()
-        handleEditarSave(comentario.id, this.state.body)
+        let { dispatch, revert } = this.props
+        comentario['timestamp'] = Date.now()
+        comentario['body'] = this.state.body      
+        dispatch(handleEditComentario(comentario.id, comentario))
+        revert()       
     }
 
     render() {
@@ -56,7 +61,7 @@ class EditComment extends Component {
                 </span>
 
                 <form
-                    onSubmit={(e) => this.handleTextSubmit(e, comentario)}>
+                    onSubmit={(e) => this.handleSaveComentario(e, comentario)}>
                     <textarea
                         value={this.state.body}
                         onChange={this.handleTextEdit}
@@ -72,4 +77,4 @@ class EditComment extends Component {
     }
 }
 
-export default connect()(EditComment)
+export default withRouter(connect()(EditComment))

@@ -3,23 +3,20 @@ import { connect } from 'react-redux';
 import { handleByParent } from '../actions/comentarios'
 import PostInfo from './PostInfo'
 import Comments from './Comments';
-import { getByCategory, handleGetPostById } from '../actions/post'
-import { isNull } from 'util';
+import { handleGetPostById } from '../actions/post'
 
 class PostDetals extends Component {
 
     componentDidMount() {
         const { getComments, getPostById } = this.props
-        const { id } = this.props.match.params
-        console.log('postDetals - id', id)
+        const { id } = this.props.match.params      
         getPostById(id)
         getComments(id)
-
     }
 
     render() {
         let { comentario, post } = this.props
-        console.log(this.props)
+        console.log(comentario)
         return (
             <div>
                 <div style={{
@@ -28,8 +25,9 @@ class PostDetals extends Component {
                     marginLeft: '16px'
                 }} >
                     {post && <PostInfo item={post} />}
-                    {comentario.comentario && comentario.comentario.map((comentario) => {
-                        return <Comments key={comentario.id} item={comentario} />
+                    {Array.isArray(comentario) && comentario.map(coment => {
+                        console.log(coment)                   
+                        return <Comments key={coment.id} item={coment} />
                     })}
                 </div>
             </div>
@@ -37,9 +35,7 @@ class PostDetals extends Component {
     }
 }
 
-
-function mapStateToProps({ post, comentario }) {
-
+function mapStateToProps({ post, comentario }) {   
     return {
         post,
         comentario
@@ -55,4 +51,4 @@ const mapDispatchToProps = dispatch => ({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetals)
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetals) 

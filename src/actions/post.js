@@ -45,7 +45,7 @@ export function handleAddPost(post) {
     console.log("handleAddPost", post)
     return (dispatch) => {
         getSavePost(post)
-            .then((post) => {   
+            .then((post) => {
                 console.log("handleAddPost", post)
                 dispatch(addPost(post))
                 //Retorna todas os posts 
@@ -100,6 +100,7 @@ export function handSortVotePost() {
         const postSort = post.sort((a, b) => {
             return b.voteScore - a.voteScore
         })
+        console.log('handSortVotePost', postSort)
         dispatch(sortVotePost(postSort))
     }
 }
@@ -107,7 +108,9 @@ export function handSortVotePost() {
 export function handSortDate() {
     return (dispatch, getState) => {
         const { post } = getState()
-        const postSort = post.sort((a, b) => b.timestamp - a.timestamp)
+        const postSort = post.sort((a, b) => 
+             b.timestamp - a.timestamp)
+        console.log('handSortDate', postSort)
         dispatch(sortVotePost(postSort))
     }
 }

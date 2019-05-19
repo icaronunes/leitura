@@ -8,7 +8,6 @@ class Post extends PureComponent {
 
     render() {
         const post = this.props.item
-        console.log("POST", post)
         return (post ? <div style={{
             padding: '4px',
             borderStyle: 'solid',
