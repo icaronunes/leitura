@@ -15,8 +15,7 @@ class Comments extends Component {
         dispatch(handleDeleteItem(idPost.id))
     }
 
-    handleRevertType = () => { 
-        console.log('handleRevertType', this)                  
+    handleRevertType = () => {                  
         this.setState((prev, props) => ({
             edit: !prev.edit
         }))
@@ -24,7 +23,6 @@ class Comments extends Component {
     
     render() {
         let comentario = this.props.item
-        console.log('Comments', comentario)
         return (this.state.edit ? <EditComment item={comentario} revert={this.handleRevertType}/> :
             <div style={{
                 border: "3px",

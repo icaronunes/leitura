@@ -42,13 +42,10 @@ function editPost(post) {
 }
 
 export function handleAddPost(post) {
-    console.log("handleAddPost", post)
     return (dispatch) => {
         getSavePost(post)
             .then((post) => {
-                console.log("handleAddPost", post)
                 dispatch(addPost(post))
-                //Retorna todas os posts 
             })
             .catch(erro => {
                 console.log("erro - handleAddPOst", erro)
@@ -72,7 +69,6 @@ export function handleGetPostById(id) {
     return (dispatch) => {
         getPostById(id)
             .then((post) => {
-                console.log("getPostById", post)
                 dispatch(receivePost(post))
             })
             .catch(e => {
@@ -97,6 +93,7 @@ export function handleCategoriaById(categoria) {
 export function handSortVotePost() {
     return (dispatch, getState) => {
         const { post } = getState()
+        console.log('handSortVotePost', post)
         const postSort = post.sort((a, b) => {
             return b.voteScore - a.voteScore
         })
@@ -108,19 +105,20 @@ export function handSortVotePost() {
 export function handSortDate() {
     return (dispatch, getState) => {
         const { post } = getState()
-        const postSort = post.sort((a, b) => 
-             b.timestamp - a.timestamp)
-        console.log('handSortDate', postSort)
-        dispatch(sortVotePost(postSort))
+        console.log('handSortDate', post)
+        let posts = post.sort((a, b) =>
+            b.timestamp - a.timestamp
+        )
+        console.log('handSortDate', posts)
+        dispatch(sortVotePost(posts))
     }
 }
 
 export function handleEdit(id, post) {
     return (dispatch) => {
         editPostById(id, post)
-            .then((e) => {
-                console.log("handleEdit - Editada", e)
-                dispatch(editPost(e))
+            .then((post) => {
+                dispatch(editPost(post))
             })
             .catch(e => {
                 console.log("ERRO - handleEdit", e)
@@ -132,7 +130,6 @@ export function getByCategory(categoria) {
     return (dispatch) => {
         getPostByCategory(categoria)
             .then((e) => {
-                console.log("handleEdit", e)
                 dispatch(receivePost(e))
             })
             .catch(e => {

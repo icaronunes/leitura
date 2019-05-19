@@ -13,10 +13,9 @@ class PostDetals extends Component {
         getPostById(id)
         getComments(id)
     }
-
+    
     render() {
         let { comentario, post } = this.props
-        console.log(comentario)
         return (
             <div>
                 <div style={{
@@ -25,8 +24,8 @@ class PostDetals extends Component {
                     marginLeft: '16px'
                 }} >
                     {post && <PostInfo item={post} />}
-                    {Array.isArray(comentario) && comentario.map(coment => {
-                        console.log(coment)                   
+                    {Array.isArray(comentario) && comentario.map(coment => {            
+                        if (!coment.deleted)                   
                         return <Comments key={coment.id} item={coment} />
                     })}
                 </div>

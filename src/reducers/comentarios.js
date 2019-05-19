@@ -7,17 +7,21 @@ export default function comentarios(state = {}, action) {
     switch (action.type) {
 
         case RECEIVE_COMMENTS:
-            return  action.comments
-            
+            return action.comments
+
         case UPDATE:
-            return {...state                
+            return {
+                ...state
             }
 
         case DELETE:
-            return [
-                ...state,
-                {...action.comments}
-            ]
+            let alterado = state.map(item => {
+                if (item.id === action.comments.id) {
+                    item = action.comments
+                }
+                return item
+            })
+            return alterado
 
         default:
             return state

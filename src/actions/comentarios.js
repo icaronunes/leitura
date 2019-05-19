@@ -39,7 +39,7 @@ export function handleDeleteItem(id) {
     return (dispatch) => {
         deletePostById(id)
             .then((item) => {
-                console.log(" handleDeleteItem", item)
+                //console.log(" handleDeleteItem", item)
                 dispatch(receiveDetele(item))
             })
             .catch(e => { console.log("Erro - handleDeleteItem", e) })
