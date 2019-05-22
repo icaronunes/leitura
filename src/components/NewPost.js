@@ -43,14 +43,11 @@ class NewPost extends PureComponent {
         e.preventDefault()
         let post = {
             title: this.state.title,
-            body: this.state.body,
-            author: this.state.author,
-            category: this.state.category,
-            timestamp: Date.now(),
-            id: this.props.item.match.params.id
+            body: this.state.body
         }
-        let editPost = this.props.editPost       
-        editPost(post.id, post)       
+        let editPost = this.props.editPost
+        let id = this.props.item.match.params.id      
+        editPost(id, post)       
         this.props.history.push(`/post/${post.id}`)
     }
 
@@ -110,7 +107,6 @@ class NewPost extends PureComponent {
                         <input type='submit' />
                     </form>
                     :
-
                     <form onSubmit={this.handleEditPost} >
                         Titulo: <input type='text' name='title' value={title} onChange={this.handleTitle} />
                         Post: <textarea type='text' maxLength={140} name='body' value={body} onChange={(e) => {

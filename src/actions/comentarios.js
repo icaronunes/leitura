@@ -1,6 +1,6 @@
 
-import { RECEIVE_COMMENTS, UPDATE, DELETE } from '../reducers/comentarios'
-import { getComentarioByPost, deletePostById, editCommentById, voteComment } from '../utils/api';
+import { RECEIVE_COMMENTS, UPDATE,NEW } from '../reducers/comentarios'
+import { getComentarioByPost, deletePostById, editCommentById, voteComment, saveComment } from '../utils/api';
 
 function receiveComenario(comentario) {
     return {
@@ -12,6 +12,13 @@ function receiveComenario(comentario) {
 function receiveDetele(comentario) {
     return {
         type: UPDATE,
+        comments: comentario 
+    }
+}
+
+function receiveNew(comentario) {
+    return {
+        type: NEW,
         comments: comentario 
     }
 }
@@ -49,7 +56,7 @@ export function handleEditComentario(id, body) {
     return (dispatch) => {
         editCommentById(id, body)
             .then(comentarios => {
-                              
+             //TODO atualizar redux                 
             })
     }
 }
@@ -57,9 +64,22 @@ export function handleEditComentario(id, body) {
 export function setVoteComments(id, vote) {  
     return (dispatch) => {
         voteComment(id, vote)
-            .then((coment) => {
-                console.log("setVoteComments", coment)
+            .then((coment) => {             
                 dispatch(updateCometario(coment))
+            })
+            .catch(e => {
+                console.log("ERRO - setVoteComments", e)
+            })
+    }
+}
+
+
+export function setSaveComments(vote) {  
+    return (dispatch) => {
+        saveComment(vote)
+            .then((coment) => {
+                console.log("setSaveComments", coment)             
+                dispatch(receiveNew(coment))
             })
             .catch(e => {
                 console.log("ERRO - setVoteComments", e)

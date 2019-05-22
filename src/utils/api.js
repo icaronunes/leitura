@@ -67,35 +67,42 @@ function getSavePost(post) {
             },
             body: JSON.stringify(post)
         })
-        .then(res => res.json())       
+        .then(res => res.json())
 }
 
-function editPostById(id, post) {    
-    return fetch(`http://localhost:3001/posts/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json'
-        },
-        'body': JSON.stringify(post)
-    }).then(res => {       
-        res.json();
-    })    
+function editPostById(id, post) {
+    console.log('editPostById', post, 'id', id)
+    return fetch(`http://localhost:3001/posts/${id}`,
+        {
+            method: 'PUT',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            },
+            'body': JSON.stringify(post)
+        }).then(res => {
+            console.log('editPostById RES', res.url)
+            return res.json();
+        })
+        .catch(e => {
+            console.log('editPostById RES', e)
+        })
 }
 
-function deletePostById(id) {    
-    return fetch(`http://localhost:3001/comments/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': token,            
-        }
-    }).then(res => {                 
-       return res.json();
-    })
-    
+function deletePostById(id) {
+
+    return fetch(`http://localhost:3001/comments/${id}`,
+        {
+            method: 'DELETE',
+            headers: {
+                'Authorization': token,
+            }
+        }).then(res => {
+            return res.json();
+        })
 }
 
-function editCommentById(id, comments) {    
+function editCommentById(id, comments) {
     return fetch(`http://localhost:3001/comments/${id}`, {
         method: 'PUT',
         headers: {
@@ -103,11 +110,23 @@ function editCommentById(id, comments) {
             'Content-Type': 'application/json'
         },
         'body': JSON.stringify(comments)
-    }).then(res => {       
-       return res.json();
+    }).then(res => {
+        return res.json();
     })
 }
 
+function saveComment(comments) {
+    return fetch(`http://localhost:3001/comments/`, {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        },
+        'body': JSON.stringify(comments)
+    }).then(res => {
+        return res.json();
+    })
+}
 
 function getVotePost(id, vote) {
     return fetch(`http://localhost:3001/posts/${id}`,
@@ -120,12 +139,12 @@ function getVotePost(id, vote) {
             body: JSON.stringify(vote)
         })
         .then(res => {
-            console.log(res) 
+            console.log(res)
             return res.json()
         })
         .catch(e => {
-            console.log('erro', e) 
-        })       
+            console.log('erro', e)
+        })
 }
 
 function voteComment(id, vote) {
@@ -139,12 +158,12 @@ function voteComment(id, vote) {
             body: JSON.stringify(vote)
         })
         .then(res => {
-            console.log(res) 
+            console.log(res)
             return res.json()
         })
         .catch(e => {
-            console.log('erro', e) 
-        })       
+            console.log('erro', e)
+        })
 }
 
 
@@ -159,5 +178,6 @@ module.exports = {
     deletePostById,
     editCommentById,
     getVotePost,
-    voteComment
+    voteComment,
+    saveComment
 }

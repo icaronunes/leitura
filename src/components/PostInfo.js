@@ -4,12 +4,23 @@ import { formatDate } from '../utils/utils'
 import { Link } from 'react-router-dom'
 import { MdEdit, MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import { setVotePost } from '../actions/post'
+import NewComments from './NewComments';
 
 class PostInfo extends PureComponent {
 
+    state = {
+        edit: false,
+    }
+
     handleVote = (id, vote) => {
-        let { changeVote} = this.props             
-        changeVote(id, {option: vote})             
+        let { changeVote } = this.props
+        changeVote(id, { option: vote })
+    }
+
+    handleNewComments = () => {
+        this.setState((state, props) => ({
+            edit: !state.edit
+        }))
     }
 
     render() {
@@ -61,18 +72,26 @@ class PostInfo extends PureComponent {
                         width: '0'
                     }}>{post.voteScore}
                     </h6>
-                    <button onClick={(e) => { this.handleVote(post.id, 'downVote')}}>
+                    <button onClick={(e) => { this.handleVote(post.id, 'downVote') }}>
                         <MdArrowDownward style={{
                             alignItems: 'right',
                             textAlign: 'right',
                         }} />
                     </button>
-                    <button onClick={(e) => { this.handleVote(post.id,'upVote')}}>
+                    <button onClick={(e) => { this.handleVote(post.id, 'upVote') }}>
                         <MdArrowUpward style={{
                             alignItems: 'right',
                             textAlign: 'right',
                         }} />
                     </button>
+
+                    {this.state.edit ? <NewComments id={post.id} handleToogleComments={this.handleNewComments} /> : <button style={{
+                        alignItems: 'right',
+                        textAlign: 'right'
+                    }}
+                        onClick={(e) => { this.handleNewComments() }}>
+                        Comentar
+                    </button>}
                 </span>
             </span>
         </div> : null

@@ -87,11 +87,9 @@ export function handleCategoriaById(categoria) {
 export function handSortVotePost() {
     return (dispatch, getState) => {
         const { post } = getState()
-        console.log('handSortVotePost', post)
         let postSort = post.sort((a, b) => {
             return b.voteScore - a.voteScore
-        })
-        console.log('handSortVotePost', postSort)
+        })     
         dispatch(sortVotePost(postSort))
     }
 }
@@ -99,16 +97,14 @@ export function handSortVotePost() {
 export function handSortDate() {
     return (dispatch, getState) => {
         const { post } = getState()
-        console.log('handSortDate', post)
         let posts = post.sort((a, b) =>
             b.timestamp - a.timestamp
         )
-        console.log('handSortDate', posts)
         dispatch(sortVotePost(posts))
     }
 }
 
-export function handleEdit(id, post) {
+export function handleEdit(id, post) {    
     return (dispatch) => {
         editPostById(id, post)
             .then((post) => {
@@ -123,8 +119,9 @@ export function handleEdit(id, post) {
 export function getByCategory(categoria) {
     return (dispatch) => {
         getPostByCategory(categoria)
-            .then((e) => {
-                dispatch(receivePost(e))
+            .then((post) => {
+                console.log('editPostById RES', post)
+                dispatch(receivePost(post))
             })
             .catch(e => {
                 console.log("ERRO - handleEdit", e)
@@ -132,11 +129,10 @@ export function getByCategory(categoria) {
     }
 }
 
-export function setVotePost(id, vote) {  
+export function setVotePost(id, vote) {
     return (dispatch) => {
         getVotePost(id, vote)
             .then((post) => {
-                console.log("setVotePost", post)
                 dispatch(editPost(post))
             })
             .catch(e => {

@@ -54,14 +54,14 @@ class Nav extends Component {
                 </NavLink>
               </li>
             ))}
-        
-          {!this.props.location.pathname.includes('/post')  && 
-          <img style={{
-            alignSelf: 'center',
-            width: "26px",
-            height: "26px"
-          }} src={sort} onClick={() => this.handleSort()} />
-        }
+
+          {!this.props.location.pathname.includes('/post') &&
+            <img style={{
+              alignSelf: 'center',
+              width: "26px",
+              height: "26px"
+            }} src={sort} onClick={() => this.handleSort()} />
+          }
         </ul>
       </nav>
     )
