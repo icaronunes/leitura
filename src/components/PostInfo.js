@@ -24,8 +24,7 @@ class PostInfo extends PureComponent {
     }
 
     render() {
-        const post = this.props.item
-        console.log("postInfo", post)
+        const post = this.props.item      
         return (post ? <div style={{
             padding: '4px',
             borderStyle: 'solid',

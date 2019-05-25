@@ -16,7 +16,6 @@ class List extends Component {
 
     render() {
         const { posts } = this.props
-        console.log("List", this.props)
         return (
             <div>
                 <ul>
@@ -35,6 +34,7 @@ class List extends Component {
 }
 
 function mapStateToProps({ post }, categoria) {
+
     return {
         posts: post,
         categoria

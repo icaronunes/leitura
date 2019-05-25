@@ -10,7 +10,6 @@ export function getAllPostECategorias() {
         .catch(e => {
             console.log('erro', e)
         })
-
 }
 
 export function objectToArray(obj) {
@@ -20,6 +19,16 @@ export function objectToArray(obj) {
         return obj[key]
     })
     return lista
+}
+
+export function arrayToObject(post) {
+    let postArray = {}
+    if (Array.isArray(post)) {
+       post.forEach((item, i) => {
+        postArray[item.id] = item
+        })
+    }
+    return postArray
 }
 
 export function formatDate(timestamp) {

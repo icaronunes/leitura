@@ -1,5 +1,7 @@
 import { getPostByCategory, getAllPost, getPostById, getSavePost, editPostById, getVotePost } from '../utils/api'
 import { RECEIVE_POST, REVEIVE_POST_CAGEGORY, SORT_POST, ADD_POST, EDIT_POST } from '../reducers/post'
+import { arrayToObject, objectToArray } from '../utils/utils'
+
 export function receivePost(post) {
     return {
         type: RECEIVE_POST,
@@ -72,7 +74,7 @@ export function handleGetPostById(id) {
 }
 
 export function handleCategoriaById(categoria) {
-    console.log("handleCategoriaById", categoria)
+
     return (dispatch) => {
         getByCategory(categoria)
             .then((post) => {
@@ -87,24 +89,27 @@ export function handleCategoriaById(categoria) {
 export function handSortVotePost() {
     return (dispatch, getState) => {
         const { post } = getState()
-        let postSort = post.sort((a, b) => {
+        let postArray = objectToArray(post)
+        // Necessario para ordenar lista
+        postArray.sort((a, b) => {
             return b.voteScore - a.voteScore
-        })     
-        dispatch(sortVotePost(postSort))
+        })
+        dispatch(sortVotePost(postArray))
     }
 }
 
 export function handSortDate() {
     return (dispatch, getState) => {
         const { post } = getState()
-        let posts = post.sort((a, b) =>
-            b.timestamp - a.timestamp
-        )
-        dispatch(sortVotePost(posts))
+        let postArray = objectToArray(post)
+        // Necessario para ordenar lista        
+        postArray.sort((a, b) => {
+            return b.timestamp - a.timestamp
+        })
+        dispatch(sortVotePost(postArray))
     }
 }
-
-export function handleEdit(id, post) {    
+export function handleEdit(id, post) {
     return (dispatch) => {
         editPostById(id, post)
             .then((post) => {

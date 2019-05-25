@@ -9,8 +9,7 @@ class PostDetails extends Component {
 
     componentDidMount() {
         const { getComments, getPostById } = this.props
-        const { id } = this.props.match.params
-        console.log('PostDetails', this.props)
+        const { id } = this.props.match.params       
         getPostById(id)
         getComments(id)
     }
