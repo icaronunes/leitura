@@ -71,7 +71,7 @@ function getSavePost(post) {
 }
 
 function editPostById(id, post) {
-    console.log('editPostById', post, 'id', id)
+    console.log('editPostById', JSON.stringify(post))
     return fetch(`http://localhost:3001/posts/${id}`,
         {
             method: 'PUT',
@@ -80,8 +80,7 @@ function editPostById(id, post) {
                 'Content-Type': 'application/json'
             },
             'body': JSON.stringify(post)
-        }).then(res => {
-            console.log('editPostById RES', res.url)
+        }).then(res => {            
             return res.json();
         })
         .catch(e => {
