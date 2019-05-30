@@ -1,6 +1,6 @@
 import { getPostByCategory, getAllPost, getPostById, getSavePost, editPostById, getVotePost } from '../utils/api'
 import { RECEIVE_POST, REVEIVE_POST_CAGEGORY, SORT_POST, ADD_POST, EDIT_POST } from '../reducers/post'
-import { arrayToObject, objectToArray } from '../utils/utils'
+import { objectToArray } from '../utils/utils'
 
 export function receivePost(post) {
     return {
