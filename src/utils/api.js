@@ -51,8 +51,7 @@ function getPostById(id) {
             method: 'GET',
             headers: { 'Authorization': token }
         })
-        .then(res => {
-            console.log('getPostById', `http://localhost:3001/posts/${id}`)
+        .then(res => {            
             return res.json()
         })
 }
@@ -90,11 +89,12 @@ function editPostById(id, post) {
 
 function deletePostById(id) {
 
-    return fetch(`http://localhost:3001/comments/${id}`,
+    return fetch(`http://localhost:3001/posts/${id}`,
         {
             method: 'DELETE',
             headers: {
                 'Authorization': token,
+                'Content-Type': 'application/json'
             }
         }).then(res => {
             return res.json();

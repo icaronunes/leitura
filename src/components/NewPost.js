@@ -15,7 +15,7 @@ class NewPost extends PureComponent {
     componentDidMount() {
         console.log("new Post", this.props)
         if (this.props.item.location.state != null) {
-            let item = this.props.item.location.state.post          
+            let item = this.props.item.location.state.post
             this.setItemToState(item)
             this.setState({
                 id: item.id
@@ -34,7 +34,7 @@ class NewPost extends PureComponent {
             id: generateUID()
         }
         let savePost = this.props.savePost
-        savePost(post)     
+        savePost(post)
         this.props.history.push(`/${this.state.category}`)
     }
 
@@ -46,9 +46,10 @@ class NewPost extends PureComponent {
             body: this.state.body
         }
         let editPost = this.props.editPost
-        let id = this.props.item.match.params.id      
-        editPost(id, post)       
-        this.props.history.push(`/post/${id}`)
+        let id = this.props.item.match.params.id
+        let { category } = this.props.item.location.state.post
+        editPost(id, post)
+        this.props.history.replace(`/${category}/${id}`)
     }
 
     setItemToState(item) {
@@ -72,10 +73,11 @@ class NewPost extends PureComponent {
         if (this.props.item.location.state != null) {
             item = this.props.item.location.state.post
         }
-        let { body, title, author, category } = this.state           
+        let { body, title, author, category } = this.state
+        console.log('NewPost', this.props)
         return (
             <div>
-                {item == null ?
+                {item === null ?
                     <form onSubmit={this.handleSavePost} >
                         Titulo: <input type='text' name='title' onChange={(e) => {
                             this.setState({
@@ -100,7 +102,7 @@ class NewPost extends PureComponent {
                         }}>
                             <option disabled={true} defaultValue={"Categoria"} selected={true} >Categoria</option>
                             {categorias.categories && categorias.categories.map((categoria) => {
-                                if (categoria.name != 'todos')
+                                if (categoria.name !== 'todos')
                                     return <option key={categoria.name} value={categoria.name}>{categoria.name}</option>
                             })}
                         </select>

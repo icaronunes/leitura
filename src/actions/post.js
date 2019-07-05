@@ -1,5 +1,5 @@
-import { getPostByCategory, getAllPost, getPostById, getSavePost, editPostById, getVotePost } from '../utils/api'
-import { RECEIVE_POST, REVEIVE_POST_CAGEGORY, SORT_POST, ADD_POST, EDIT_POST } from '../reducers/post'
+import { getPostByCategory, getAllPost, getPostById, getSavePost, editPostById, getVotePost, deletePostById } from '../utils/api'
+import { RECEIVE_POST, REVEIVE_POST_CAGEGORY, SORT_POST, ADD_POST, EDIT_POST,VOTE_POST } from '../reducers/post'
 import { objectToArray } from '../utils/utils'
 
 export function receivePost(post) {
@@ -37,6 +37,14 @@ function editPost(post) {
     }
 }
 
+
+function editVote(post) {
+    return {
+        type: VOTE_POST,
+        post: post
+    }
+}
+
 export function handleAddPost(post) {
     return (dispatch) => {
         getSavePost(post)
@@ -53,6 +61,7 @@ export function handleGetPost() {
     return (dispatch) => {
         getAllPost()
             .then((post) => {
+                console.log('handleGetPost', post)
                 dispatch(receivePost(post))
             }).catch(e => {
                 console.log("ERRO - handleGetPost", e)
@@ -65,7 +74,8 @@ export function handleGetPostById(id) {
     return (dispatch) => {
         getPostById(id)
             .then((post) => {
-                dispatch(receivePost(post))
+                console.log('handleGetPostById', post)
+                dispatch(receivePost([post]))
             })
             .catch(e => {
                 console.log("ERRO - handleGetPostById", e)
@@ -113,7 +123,7 @@ export function handleEdit(id, post) {
     return (dispatch) => {
         editPostById(id, post)
             .then((post) => {
-                dispatch(editPost(post))
+                dispatch(editPost([post]))
             })
             .catch(e => {
                 console.log("ERRO - handleEdit", e)
@@ -125,7 +135,6 @@ export function getByCategory(categoria) {
     return (dispatch) => {
         getPostByCategory(categoria)
             .then((post) => {
-                console.log('editPostById RES', post)
                 dispatch(receivePost(post))
             })
             .catch(e => {
@@ -138,7 +147,21 @@ export function setVotePost(id, vote) {
     return (dispatch) => {
         getVotePost(id, vote)
             .then((post) => {
-                dispatch(editPost(post))
+                dispatch(editVote(post))
+            })
+            .catch(e => {
+                console.log("ERRO - setVotePost", e)
+            })
+    }
+}
+
+
+export function setdisablePost(id) {
+    return (dispatch) => {
+        deletePostById(id)
+            .then((post) => {
+                console.log("deletePostById", post)
+                //dispatch(editPost(post))
             })
             .catch(e => {
                 console.log("ERRO - setVotePost", e)

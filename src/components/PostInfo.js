@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { formatDate } from '../utils/utils'
 import { Link } from 'react-router-dom'
 import { MdEdit, MdArrowDownward, MdArrowUpward } from 'react-icons/md';
-import { setVotePost } from '../actions/post'
+import { setVotePost, setdisablePost } from '../actions/post'
 import NewComments from './NewComments';
-
+import { withRouter } from 'react-router-dom'
 class PostInfo extends PureComponent {
 
     state = {
@@ -23,8 +23,15 @@ class PostInfo extends PureComponent {
         }))
     }
 
+    handleDelete = (id) => {
+        let { deletePost } = this.props
+        deletePost(id)
+        this.props.history.goBack()
+    }
+
     render() {
-        const post = this.props.item      
+        console.log('PostInfo', this.props)
+        const post = this.props.item[0]
         return (post ? <div style={{
             padding: '4px',
             borderStyle: 'solid',
@@ -69,7 +76,16 @@ class PostInfo extends PureComponent {
                         marginTop: '10px',
                         marginBottom: '10px',
                         width: '0'
-                    }}>{post.voteScore}
+                    }}>Votos: {post.voteScore}
+                    </h6>
+
+                    <h6 style={{
+                        alignItems: 'right',
+                        textAlign: 'right',
+                        marginTop: '10px',
+                        marginBottom: '10px',
+                        width: '0'
+                    }}>Comentarios: {post.commentCount}
                     </h6>
                     <button onClick={(e) => { this.handleVote(post.id, 'downVote') }}>
                         <MdArrowDownward style={{
@@ -91,6 +107,10 @@ class PostInfo extends PureComponent {
                         onClick={(e) => { this.handleNewComments() }}>
                         Comentar
                     </button>}
+
+                    <button onClick={() => { this.handleDelete(post.id) }}>
+                        Delete
+                    </button>
                 </span>
             </span>
         </div> : null
@@ -101,7 +121,10 @@ class PostInfo extends PureComponent {
 const mapDispatchToProps = dispatch => ({
     changeVote(id, vote) {
         dispatch(setVotePost(id, vote));
+    },
+    deletePost(id) {
+        dispatch(setdisablePost(id))
     }
 })
 
-export default connect(null, mapDispatchToProps)(PostInfo)
+export default  withRouter(connect(null, mapDispatchToProps)(PostInfo))

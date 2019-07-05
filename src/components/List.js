@@ -2,20 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getByCategory, handleGetPost } from '../actions/post'
 import Post from './Post'
-
 class List extends Component {
 
     componentDidMount() {
-        const categoria = this.props.categoria
-        if (categoria.categoria === 'todos') {
+        const categoria = this.props.match.params.category        
+        if (categoria === undefined) {
             this.props.getAllPost()
         } else {
-            this.props.byCategory(categoria.categoria)
+            this.props.byCategory(categoria)
         }
     }
 
     render() {
-        const { posts } = this.props
+        const { posts } = this.props        
         return (
             <div>
                 <ul>

@@ -9,13 +9,14 @@ class PostDetails extends Component {
 
     componentDidMount() {
         const { getComments, getPostById } = this.props
-        const { id } = this.props.match.params       
+        const { id } = this.props.match.params
         getPostById(id)
         getComments(id)
     }
-    
+
     render() {
         let { comentario, post } = this.props
+        console.log('PostDetals', this.props)
         return (
             <div>
                 <div style={{
@@ -23,10 +24,10 @@ class PostDetails extends Component {
                     justifyContent: "center",
                     marginLeft: '16px'
                 }} >
-                    {post && <PostInfo item={post} />}
-                    {Array.isArray(comentario) && comentario.map(coment => {            
-                        if (!coment.deleted)                   
-                        return <Comments key={coment.id} item={coment} />
+                    {<PostInfo item={post} />}
+                    {Array.isArray(comentario) && comentario.map(coment => {
+                        if (!coment.deleted)
+                            return <Comments key={coment.id} item={coment} />
                     })}
                 </div>
             </div>
@@ -34,7 +35,7 @@ class PostDetails extends Component {
     }
 }
 
-function mapStateToProps({ post, comentario }) {   
+function mapStateToProps({ post, comentario }) {
     return {
         post,
         comentario

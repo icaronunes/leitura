@@ -38,8 +38,7 @@ class Comments extends Component {
                 justifyContent: "center",
                 alignItems: 'justify',
                 alignContent: 'center',
-                display: 'block',
-                alignItems: 'center'
+                display: 'block',              
             }}>
                 <span style={{
                     display: 'flex',
