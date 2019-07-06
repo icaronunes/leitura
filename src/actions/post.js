@@ -132,9 +132,10 @@ export function handleEdit(id, post) {
 }
 
 export function getByCategory(categoria) {
-    return (dispatch) => {
+    return (dispatch) => {   
         getPostByCategory(categoria)
             .then((post) => {
+                console.log('getByCategoryt', post)
                 dispatch(receivePost(post))
             })
             .catch(e => {

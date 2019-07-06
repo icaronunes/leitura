@@ -34,8 +34,10 @@ class NewPost extends PureComponent {
             id: generateUID()
         }
         let savePost = this.props.savePost
+        if(savePost.category !== ''){
         savePost(post)
         this.props.history.push(`/${this.state.category}`)
+        }
     }
 
 

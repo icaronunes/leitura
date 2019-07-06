@@ -5,7 +5,7 @@ import Post from './Post'
 class List extends Component {
 
     componentDidMount() {
-        const categoria = this.props.match.params.category        
+        const categoria = this.props.match.params.category
         if (categoria === undefined) {
             this.props.getAllPost()
         } else {
@@ -13,8 +13,21 @@ class List extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        console.log('componentDidUpdate', prevProps,
+            'prevState', this.props)
+        if (prevProps.match.params.category !== this.props.match.params.category) {
+            const categoria = this.props.match.params.category
+            if (categoria === undefined) {
+                this.props.getAllPost()
+            } else {
+                this.props.byCategory(categoria)
+            }
+        }
+    }
+
     render() {
-        const { posts } = this.props        
+        const { posts } = this.props
         return (
             <div>
                 <ul>
@@ -32,11 +45,10 @@ class List extends Component {
     }
 }
 
-function mapStateToProps({ post }, categoria) {
+function mapStateToProps({ post }, props) {
 
     return {
-        posts: post,
-        categoria
+        posts: post
     }
 }
 

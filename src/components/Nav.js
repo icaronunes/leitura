@@ -38,7 +38,7 @@ class Nav extends Component {
             display: 'inline-block',
             fontSize: '20px',
             padding: '20px'
-          }}><NavLink to={`/`} exact activeClassName='active'>
+          }}><NavLink to={`/`} exact  activeClassName="active">
               Todos
             </NavLink>
           </li>
@@ -49,8 +49,8 @@ class Nav extends Component {
                 display: 'inline-block',
                 fontSize: '20px',
                 padding: '20px'
-              }} key={categorias.name}>
-                <NavLink to={`/${categorias.name}`} exact activeClassName='active'>
+              }} key={categorias.name}>           
+                <NavLink to={`/${categorias.name}`} exact  activeClassName="active">
                   {UpcasePrimeiraLetra(categorias.name)}
                 </NavLink>
               </li>

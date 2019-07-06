@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, View } from 'react'
 import { connect } from 'react-redux';
 import { handleByParent } from '../actions/comentarios'
 import PostInfo from './PostInfo'
 import Comments from './Comments';
+import Erro from './Erro'
 import { handleGetPostById } from '../actions/post'
 
 class PostDetails extends Component {
@@ -23,12 +24,25 @@ class PostDetails extends Component {
                     listStyleType: 'none',
                     justifyContent: "center",
                     marginLeft: '16px'
-                }} >
-                    {<PostInfo item={post} />}
-                    {Array.isArray(comentario) && comentario.map(coment => {
-                        if (!coment.deleted)
-                            return <Comments key={coment.id} item={coment} />
-                    })}
+                }}>
+                    {Array.isArray(post) && Object.keys(post[0]).length >= 1 ?
+                        <div>
+                            <PostInfo item={post} />
+                            {Array.isArray(comentario) && comentario.map(coment => {
+                                if (!coment.deleted)
+                                    return <Comments key={coment.id} item={coment} />
+                            })}
+                        </div>
+                        :
+                        <div  style={{
+                            justifyContent: "center",
+                            alignItems: 'justify',
+                            alignContent: 'center',
+                            display: 'flex',                          
+                        }}>
+                            <Erro />
+                        </div>
+                    }
                 </div>
             </div>
         )

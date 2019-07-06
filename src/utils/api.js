@@ -34,6 +34,7 @@ function getComentarioByPost(id) {
 
 }
 
+
 function getPostByCategory(categoria) {
     return fetch(`http://localhost:3001/${categoria}/posts`,
         {
@@ -42,6 +43,9 @@ function getPostByCategory(categoria) {
         })
         .then(res => {
             return res.json()
+        })
+        .catch(e => {
+            console.log('getPostByCategory', e)
         })
 }
 
@@ -88,7 +92,6 @@ function editPostById(id, post) {
 }
 
 function deletePostById(id) {
-
     return fetch(`http://localhost:3001/posts/${id}`,
         {
             method: 'DELETE',
@@ -96,9 +99,21 @@ function deletePostById(id) {
                 'Authorization': token,
                 'Content-Type': 'application/json'
             }
-        }).then(res => {
+        }).then(res => {        
             return res.json();
         })
+}
+
+function deleteCommentById(id) {
+    return fetch(`http://localhost:3001/comments/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        }       
+    }).then(res => {
+        return res.json();
+    })
 }
 
 function editCommentById(id, comments) {
@@ -178,5 +193,6 @@ module.exports = {
     editCommentById,
     getVotePost,
     voteComment,
-    saveComment
+    saveComment,
+    deleteCommentById
 }

@@ -6,7 +6,7 @@ import Nav from './components/Nav'
 import List from './components/List'
 import PostDetails from './components/PostDetals'
 import NewPost from './components/NewPost'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 class App extends Component {
 
@@ -18,17 +18,15 @@ class App extends Component {
 
     return (
       <Router>
-        <Fragment >
-          <div >
-            <Nav categorias={this.props.categorias} />
-
-            <Route path='/:category' exact component={List} />
+        <Fragment>
+          <div>
+            <Nav categorias={this.props.categorias} />                 
+            <Route path='/:category/' exact component={List} />
             <Route path='/' exact component={List} />
-
             <Route path='/edit/:id' exact component={NewPost} />
             <Route path='/:category/:id' exact component={PostDetails} />
-            <Route path='/add' exact render={() => <NewPost categorias={this.props.categorias} />} />
-          // TODO arrumar 
+            <Route path='/add' exact render={() => <NewPost categorias={this.props.categorias} />} />            
+           
           </div>
           <Link
             className="open-add"
@@ -38,6 +36,7 @@ class App extends Component {
           ><button />
           </Link>
         </Fragment>
+       
       </Router>
     );
   }

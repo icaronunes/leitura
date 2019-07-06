@@ -1,6 +1,6 @@
 
-import { RECEIVE_COMMENTS, UPDATE,NEW } from '../reducers/comentarios'
-import { getComentarioByPost, deletePostById, editCommentById, voteComment, saveComment } from '../utils/api';
+import { RECEIVE_COMMENTS, UPDATE, NEW } from '../reducers/comentarios'
+import { getComentarioByPost, deleteCommentById, editCommentById, voteComment, saveComment } from '../utils/api';
 
 function receiveComenario(comentario) {
     return {
@@ -12,14 +12,14 @@ function receiveComenario(comentario) {
 function receiveDetele(comentario) {
     return {
         type: UPDATE,
-        comments: comentario 
+        comments: comentario
     }
 }
 
 function receiveNew(comentario) {
     return {
         type: NEW,
-        comments: comentario 
+        comments: comentario
     }
 }
 
@@ -33,7 +33,7 @@ function updateCometario(comentarios) {
 export function handleByParent(idParent) {
     return (dispatch) => {
         getComentarioByPost(idParent)
-            .then(comentario => {                
+            .then(comentario => {
                 dispatch(receiveComenario(comentario))
             })
             .catch(e => {
@@ -44,8 +44,10 @@ export function handleByParent(idParent) {
 
 export function handleDeleteItem(id) {
     return (dispatch) => {
-        deletePostById(id)
-            .then((item) => {                
+        console.log('handleDeleteItem', id)
+        deleteCommentById(id)
+            .then((item) => {
+                console.log('handleDeleteItem', item)
                 dispatch(receiveDetele(item))
             })
             .catch(e => { console.log("Erro - handleDeleteItem", e) })
@@ -56,15 +58,15 @@ export function handleEditComentario(id, body) {
     return (dispatch) => {
         editCommentById(id, body)
             .then(comentarios => {
-             //TODO atualizar redux                 
+                //TODO atualizar redux                 
             })
     }
 }
 
-export function setVoteComments(id, vote) {  
+export function setVoteComments(id, vote) {
     return (dispatch) => {
         voteComment(id, vote)
-            .then((coment) => {             
+            .then((coment) => {
                 dispatch(updateCometario(coment))
             })
             .catch(e => {
@@ -74,11 +76,11 @@ export function setVoteComments(id, vote) {
 }
 
 
-export function setSaveComments(vote) {  
+export function setSaveComments(vote) {
     return (dispatch) => {
         saveComment(vote)
             .then((coment) => {
-                console.log("setSaveComments", coment)             
+                console.log("setSaveComments", coment)
                 dispatch(receiveNew(coment))
             })
             .catch(e => {
