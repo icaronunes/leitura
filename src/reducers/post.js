@@ -32,6 +32,7 @@ export default function post(state = {}, action) {
 
         case EDIT_POST:         
             return state.map(item => {
+                console.log('action', action)
                 if (item.id === action.post.id) {
                     return action.post
                 }

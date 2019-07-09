@@ -123,7 +123,8 @@ export function handleEdit(id, post) {
     return (dispatch) => {
         editPostById(id, post)
             .then((post) => {
-                dispatch(editPost([post]))
+                console.log('handleEdit', post)
+                dispatch(editPost(post))
             })
             .catch(e => {
                 console.log("ERRO - handleEdit", e)

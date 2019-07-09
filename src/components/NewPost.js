@@ -13,7 +13,6 @@ class NewPost extends PureComponent {
     }
 
     componentDidMount() {
-        console.log("new Post", this.props)
         if (this.props.item.location.state != null) {
             let item = this.props.item.location.state.post
             this.setItemToState(item)
@@ -75,8 +74,7 @@ class NewPost extends PureComponent {
         if (this.props.item.location.state != null) {
             item = this.props.item.location.state.post
         }
-        let { body, title, author, category } = this.state
-        console.log('NewPost', this.props)
+        let { body, title, author, category } = this.state  
         return (
             <div>
                 {item === null ?
