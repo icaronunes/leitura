@@ -2,11 +2,12 @@
 
 * Instalando e utilizando o projeto:
 
-  * Para instalação:
-na raiz do projeto, digite: npm/yarn install - Para instalar as dependências do projeto. 
+  * Para instalação das dependências do projeto:
+na raiz do projeto, digite: npm/yarn install
 
    * Para iniciar o projeto:
-digite npm/yarn start 
+   Apos a instalação das dependências
+   digite: npm/yarn start 
 
 # Servidor
 
