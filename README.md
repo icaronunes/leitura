@@ -1,8 +1,14 @@
-#Projeto Numero 2 - Udacity - React
+# Projeto Numero 2 - Udacity - React
 
-Para iniciar projeto, digite 'npm start'
+* Instalando e utilizando o projeto:
 
-é preciso que o servidor estaja funcionando também.
+  * Para instalação:
+na raiz do projeto, digite: npm/yarn install - Para instalar as dependências do projeto. 
 
-Dento de 'reactnd-project-readable-starter' -> api-server -> no terminal 'node server'
+   * Para iniciar o projeto:
+digite npm/yarn start 
 
+# Servidor
+
+  Para o projeto funcionar, é preciso acessar o servidor.
+  Esté serviço é fornecido pela Udacity - https://github.com/udacity/reactnd-project-readable-starter
