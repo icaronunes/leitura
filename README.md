@@ -12,4 +12,4 @@ na raiz do projeto, digite: npm/yarn install
 # Servidor
 
   Para o projeto funcionar, é preciso acessar o servidor.
-  Esté serviço é fornecido pela Udacity - https://github.com/udacity/reactnd-project-readable-starter
+  Este serviço é fornecido pela Udacity - https://github.com/udacity/reactnd-project-readable-starter
