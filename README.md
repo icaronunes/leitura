@@ -4,3 +4,5 @@ Para iniciar projeto, digite 'npm start'
 
 é preciso que o servidor estaja funcionando também.
 
+Dento de 'reactnd-project-readable-starter' -> api-server -> no terminal 'node server'
+
